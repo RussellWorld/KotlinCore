@@ -1,13 +1,12 @@
 package core
 
 fun main(args: Array<String>) {
-    val a = 10
-    val b = 3
-    val c = 5
+    val a = 15
+    val x = 20
 
-    val result = mult(a, b, c)
-    print("Multuply: $result")
+    if (a % 2 == 0)
+        print("$a - четное число")
+    else
+        print("$x - четное число")
 
 }
-
-fun mult(a: Int, b: Int, c: Int) = (a * b * c)
