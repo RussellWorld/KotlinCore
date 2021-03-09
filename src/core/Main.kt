@@ -1,12 +1,7 @@
 package core
 
 fun main(args: Array<String>) {
-    val a = 15
-    val x = 20
-
-    if (a % 2 == 0)
-        print("$a - четное число")
-    else
-        print("$x - четное число")
-
+    print(sum(1, 4))
 }
+
+fun sum(a: Int, b: Int, c: Int = 0, d: Int = 0) = a + b + c + d
