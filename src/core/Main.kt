@@ -1,14 +1,13 @@
 package core
 
 fun main(args: Array<String>) {
-    print(checkNumbers(5,10))
+    val a = 10
+    val b = 3
+    val c = 5
+
+    val result = mult(a, b, c)
+    print("Multuply: $result")
 
 }
-fun checkNumbers(a: Int, b: Int): Char {
-    if (a < b)
-        return ('<')
-    else if (a > b)
-        return ('>')
-    else
-        return ('=')
-}
+
+fun mult(a: Int, b: Int, c: Int) = (a * b * c)
