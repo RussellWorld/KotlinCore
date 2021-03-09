@@ -1,13 +1,20 @@
 package core
 
+import java.util.*
+
 fun main(args: Array<String>) {
-    print(findString("Kotlin"))
+    val reader = Scanner(System.`in`)
+    print("Enter the number of elements in the array: ")
+    var n = reader.nextInt()
+
+    var arrAdd = mutableListOf<Int>()
+    for (i in 0..n) {
+        print("Enter index [$i] = ")
+        arrAdd.add(reader.nextInt())
+    }
+    arrAdd.forEach { i ->
+        print(i)
+    }
+
 }
 
-fun findString(isNullString: String?): String {
-    if (isNullString != null && isNullString.length > 0) {
-        return "String of length ${isNullString.length}"
-    } else {
-        return "Empty or null string"
-    }
-}
