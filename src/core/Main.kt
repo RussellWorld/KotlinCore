@@ -1,19 +1,21 @@
 package core
 
-import java.util.*
-
 fun main(args: Array<String>) {
-    val reader = Scanner(System.`in`)
-    print("Enter the number of elements in the array: ")
-    var n = reader.nextInt()
+    val arr = mutableListOf<Int>()
+    arr.addAll(listOf(5, -25, -55, 25, 636, 23, 3262, 236, 243, 23, -1, -6))
 
-    var arrAdd = mutableListOf<Int>()
-    for (i in 0..n) {
-        print("Enter index [$i] = ")
-        arrAdd.add(reader.nextInt())
+    var temp = 0
+    for (i in 0..arr.count() - 2) {
+        for (j in 0..arr.count() - i - 2) {
+            if (arr[j] > arr[j + 1]) {
+                temp = arr[j]
+                arr[j] = arr[j + 1]
+                arr[j + 1] = temp
+            }
+        }
     }
-    arrAdd.forEach { i ->
-        print(i)
+    arr.forEach { element ->
+        print("$element ")
     }
 
 }
