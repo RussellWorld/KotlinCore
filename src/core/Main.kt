@@ -1,11 +1,55 @@
 package core
 
-fun main(args: Array<String>) {
-    printPrefix("one", "two", "three", "four", "five", prefix = "number: ")
+var someString: String = "some string"
+val someStringOrNull: String? = "some string, but may be null"
+var someStringOrNullMutable: String? = null
+var someInt: Int = 0
+val theBestHorse: Horse? = Horse("Andalouse")
+lateinit var theBestRobot: Robot
+
+
+fun main(args: Array<String>){
+
+//    someString = someStringOrNull
+
+    someString = if (someStringOrNull != null) someStringOrNull else ""
+
+//    someInt = someStringOrNull.length
+//
+//    someInt = someStringOrNull?.length
+
+    someInt = someStringOrNull?.length ?: 0
+
+    someString = someStringOrNull ?: ""
+
+    var someHorse: Horse = theBestRobot as? Horse ?: Horse("Abaco Barb")
+
+    someHorse = theBestHorse!!
+
+    someString = theBestHorse!!.breed
+
+    println(theBestHorse?.let { getLengthOfString(it.breed) })
+
+    theBestRobot = Robot("R-2")
+
+    println(theBestRobot.type.addPrefix("type", "="))
+
+    println(someStringOrNullMutable.addPrefix("string", "="))
+
+    castToRobotIfPossible(null)
 }
 
-fun printPrefix(vararg words: String, prefix: String) {
-    for (m in words)
-        println(prefix + m)
+fun getLengthOfString(someString: String): Int{
+    return someString.length
 }
 
+fun String?.addPrefix(somePrefix: String, delimiter: String?): String {
+    return "$somePrefix${delimiter ?: " "}${this ?: "string is null"}"
+}
+
+fun <T> castToRobotIfPossible(someObject: T){
+    someObject as? Robot
+}
+class Horse(val breed: String)
+
+class Robot(val type: String)
