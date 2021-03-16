@@ -1,87 +1,77 @@
 package core
 
 fun main(args: Array<String>) {
-    if (true){
-        println("1 block")
-    } else if(true){
-        println("2 block")
-    } else {
-        println("none of above")
+
+    val arr = arrayOf(1, 2, 3, 4)
+    val arr2 = listOf(1, 2, 3).toIntArray()
+    val arr3 = arrayOfNulls<String>(5)
+    var i = 0
+    val arr4: Array<Int> = Array<Int>(4) { i++ }
+    arr4.forEach {
+        println(it)
     }
 
-    val message: String = if (args.isEmpty()){
-        "args is empty"
-    } else if(args.isNotEmpty()){
-        "args is not empty"
-    } else {
-        "none of above"
+    val intArr = intArrayOf(2, 6, 9)
+    val charArray = charArrayOf('q', 'r')
+    val boolArray = booleanArrayOf(true, false)
+
+
+    var nullableArray: Array<Int?>? = arrayOf(1, 5, null, 9)
+
+    nullableArray?.forEach {
+        println(it?.times(2))
     }
 
-    if ("a" > "A") {
-        println("${'a'.toInt()} > ${'A'.toInt()}")
-    }
+    nullableArray?.filterNotNull()
 
-    if (message is String) println("message is String")
+    val mutableCollection: MutableCollection<String> = arrayListOf("")
+    val collection: Collection<String> = mutableCollection
+    println("collection size = ${collection.size}")
+    mutableCollection.add("qwe")
+    println("collection size = ${collection.size}")
 
-    val someNewString1 = String().plus("qwe")
-    val someNewString2 = String().plus("qwe")
-    val someString1 = "qwe"
-    val someString2 = "qwe"
+    val immutableCollection: Collection<String> = arrayListOf("")
+    val immutableCollectionPlatform: Collection<String> = JavaClass.getCollection(immutableCollection)//.add(null)
 
-    if (someNewString1 === someNewString2){
-        println("$someNewString1 === $someNewString2")
-    } else if (someNewString1 == someNewString2){
-        println("$someNewString1 == $someNewString2")
-    }
+    val set = setOf("qwe", "qwe", "asd")
+    println("${set.javaClass} size = ${set.size}")
+    val set2 = hashSetOf("qwe", "qwe", "asd")
+    val set3 = sortedSetOf("qwe", "qwe", "asd")
 
-    if (someString1 === someString2){
-        println("$someString1 === $someString2")
-    } else if (someString1 == someString2){
-        println("$someString1 == $someString2")
-    }
+    val list = listOf(1, 2, 3)
 
-    when(1){
-        0 -> println("zero")
-        1 -> println("even number")
-        2 -> println("odd number")
-        else -> println("unknown")
-    }
+    val listNotNull = listOfNotNull("q", "w", null, "p", "1", "2")
+    println(listNotNull)
 
-    val someClass = SomeClass(message)
-    val someClass2 = SomeClass(message)
-    val someClassSameReference = someClass
+    var count = 0; while (count++ < 5) println(listNotNull.shuffled())
 
-    when (someClass){
-        someClass2 -> println("case 1")
-        someClassSameReference -> println("case 2")
-    }
+    val map = mapOf("first" to 25, "second" to 63, "third" to 12)
+    println(map["second"])
+    println(map.get("first"))
 
-    val setOfClasses = setOf(someClass, someClass2)
+    val mutableMap = mutableMapOf("first" to 25, "second" to 63, "third" to 12)
+    mutableMap.put("fourth", 33)
+    println(mutableMap["fourth"])
+    mutableMap.put("first", 15)
+    println(mutableMap.get("first"))
 
-    when (setOfClasses){
-        setOf(someClass2, someClass) -> println("the same set")
-    }
-
-    when {
-        1 > 0 -> println("case 1")
-        2 < 3 -> println("case 2")
-    }
-
-    printType(someClass)
-
-    when (5) {
-        in 1..3 -> println("case 1")
-        in 3..7 -> println("case 2")
-    }
+    val numbers = listOf("one", "two", "three", "four")
+    println(numbers.joinToString())
+    println(numbers.joinToString(prefix = "[", postfix = "]"))
+    println(numbers.joinToString(prefix = "{", postfix = "}", separator = "|"))
 }
 
-private fun printType(someClass: Any) {
-    when (someClass) {
-        is SomeAnotherClass -> println("type = SomeAnotherClass {${someClass.someValue}}")
-        is SomeClass -> println("type = SomeClass {${someClass.someValue}}")
-    }
+fun getCollection(collection: Collection<String>){
+    //collection.add()
 }
 
-class SomeClass(val someValue: String)
+fun getMutableCollection(collection: MutableCollection<String>){
+    collection.add("")
+}
 
-class SomeAnotherClass(val someValue: String)
+//свы можете быть уверены, что не измените коллекцию, из которой делаете копию
+fun copy(source: Collection<String>, target: MutableCollection<String>){
+    source.forEach {
+        target.add(it)
+    }
+}
