@@ -1,90 +1,134 @@
 package core
-class SomeClass constructor(someValue: String) {
-    val value: String
+interface ITranslator {
+    fun readMessage(message: String)
+}
+fun main(args: Array<String>){
+    val robot = RobotTranslator()
+    val key = enterMessage.randomKey()
+    execute(enterMessage[key])
+    val message = readLine()!!.toString().split(' ').joinToString(" ")
+    do {
+        print("enter the command : ")
+        val (command) = readLine()!!.split(' ')
+        if (robot.position == key) robot.readMessage(message)
+        robot.setCommand(command)
+    } while (command != "e")
+}
 
-    init {
-        value = someValue
+val enterMessage = mapOf(
+        EDirection.LEFT to {println("enter the message: ")},
+        EDirection.CENTER to {print("enter the message:                      ")},
+        EDirection.RIGHT to {print("enter the message:                                                           ")})
+
+fun execute(func: (() -> Unit)?){
+    if (func != null) {
+        func()
     }
 }
 
-class SomeClass2 constructor(someValue: String) {
-    val value: String = someValue
+fun <E, V> Map<E, V>.randomKey(): E? = keys.toList()[Random().nextInt(size)]
+
+enum class EDirection (val direction: String){
+    LEFT("left"), RIGHT("right"), CENTER("center")
 }
-
-class SomeClass3(someValue: String)
-
-class Simple
-
-open class Parent(someValue: String)
-
-class Child(someValue: String) : Parent(someValue)
-
-private class PrivateClass
-
-class Outer {
-    inner class Inner
-    class StaticInner
+abstract class Robot {
+    abstract var position: EDirection
+    abstract fun move(direction: EDirection)
+    abstract fun setCommand(command: String)
 }
+class RobotTranslator: Robot(), ITranslator {
 
-class Robot {
+    private val vocabulary = Vocabulary()
 
-    var x: Int = 0
+    override var position: EDirection = EDirection.LEFT
         set(value) {
-            if (value > field) println("moved to the right")
-            else if (value < field) println("moved to the left")
-            else println("stayed in his place")
+            when(value){
+                EDirection.LEFT -> leftView(message, translation)
+                EDirection.CENTER -> centerView(message, translation)
+                EDirection.RIGHT -> rightView(message, translation)
+            }
             field = value
         }
+    private var message: String = ""
+    var translation: String = ""
 
-    var y: Int = 0
-        set(value) {
-            if (value > field) println("moved to the top")
-            else if (value < field) println("moved to the bottom")
-            else println("stayed in his place")
-            field = value
+    override fun readMessage(message: String) {
+        this.message = message
+    }
+
+    private fun translate(message: String) {
+        if (message != "") translation = vocabulary.getTranslation(message.split(" "))
+        else translation = "don't see the message.. try to move me somewhere"
+        when(position){
+            EDirection.LEFT -> leftView(message, translation)
+            EDirection.CENTER -> centerView(message, translation)
+            EDirection.RIGHT -> rightView(message, translation)
         }
+    }
 
-    var isInTheCentre: Boolean = true
-        get() = x == 0 && y == 0
-        private set
+    override fun move(direction: EDirection) {
+        translation = ""
+        position = direction
+    }
 
-//    override fun toString(): String {
-//        return "${this.javaClass} [coordinates: x = $x, y = $y]"
-//    }
+    override fun setCommand(command: String) {
+        val moveCommand = getMoveCommand(command)
+        val currentCommand = getCommand(command)
+        if (moveCommand != null) move(moveCommand)
+        else if (currentCommand != null) translate(message)
+        else println("invalid command")
+    }
 
-//    override fun equals(other: Any?): Boolean {
-//        return other is Robot && x == other.x && y == other.y
-//    }
+    private fun getMoveCommand(direction: String) = when (direction){
+        EDirection.LEFT.direction -> EDirection.LEFT
+        EDirection.CENTER.direction -> EDirection.CENTER
+        EDirection.RIGHT.direction -> EDirection.RIGHT
+        else -> null
+    }
 
-    override fun hashCode(): Int {
-        return (x.hashCode() / 2) + (y.hashCode() / 2)
+    private fun getCommand(direction: String) = when (direction){
+        ECommand.TRANSLATE.command -> ECommand.TRANSLATE
+        else -> null
+    }
+
+    enum class ECommand (val command: String){
+        TRANSLATE("translate")
     }
 }
-
-data class DataClass(val name: String, val id: Int)
-
-object Singleton {
-    const val serialNumber: Int = 654321984
-
-    fun logSerialNumber() = println("serial number = $serialNumber")
+fun leftView(message: String = "", translation: String = "") {
+    println(message)
+    println("  ___")
+    println(" {*,*}")
+    println("/|   |\\")
+    println(" O---O")
+    println(translation)
 }
 
-class Cat {
-    val name: String
-    var age: Int
+fun centerView(message: String = "", translation: String = "") {
+    println("                                       $message")
+    println("                                         ___")
+    println("                                        {*,*}")
+    println("                                       /|   |\\")
+    println("                                        O---O")
+    println("                                       $translation")
+}
 
-    private constructor(name: String, age: Int) {
-        this.name = name
-        this.age = age
-    }
+fun rightView(message: String = "", translation: String = "") {
+    println("                                                                              $message")
+    println("                                                                                ___")
+    println("                                                                               {*,*}")
+    println("                                                                              /|   |\\")
+    println("                                                                               O---O")
+    println("                                                                              $translation")
+}
+internal class Vocabulary {
+    private val vocabularyMap = mapOf("hello" to "привет", "world" to "мир", "cat" to "кот")
 
-    override fun toString(): String {
-        return "${this.javaClass} [name = $name, age = $age]"
-    }
-
-    companion object {
-        fun getInstance(name: String, age: Int): Cat {
-            return Cat(name, age)
+    fun getTranslation(words: List<String>): String{
+        val mutableCollection: MutableList<String> = arrayListOf("")
+        words.forEachIndexed { index, s ->
+            mutableCollection.add(vocabularyMap[s] ?: "")
         }
+        return mutableCollection.joinToString(" ")
     }
 }
