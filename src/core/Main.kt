@@ -1,22 +1,13 @@
-class SomeClass {
-    val value = 46
+package core
 
-    class NastedClass {
-        fun showValue() {
-            //Error: Unresolved reference: value
-            // println("value - $value")
-        }
-    }
-
-    inner class InnerClass {
-        fun showValue() {
-            println("value = $value")
-        }
+class Calendar {
+    companion object {
+        const val MONTHS = 12
     }
 }
 
 
 fun main() {
-    val someClass = SomeClass()
-    someClass.InnerClass().showValue()
+    val months = Calendar.MONTHS
+    //months is 12
 }
