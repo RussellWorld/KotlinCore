@@ -1,13 +1,29 @@
 package core
 
-class Calendar {
+class Man {
+    var id = 0
+
     companion object {
-        const val MONTHS = 12
+        var nextId: Int
+
+        init {
+            nextId = getLastDbid()
+        }
+
+        fun getLastDbid(): Int {
+            //some implementation
+            return 0
+        }
+    }
+
+    init {
+        nextId++
+        id = nextId
     }
 }
 
 
 fun main() {
-    val months = Calendar.MONTHS
-    //months is 12
+    val man = Man()
+    //man.id is 1
 }
