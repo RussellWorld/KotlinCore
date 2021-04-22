@@ -1,29 +1,28 @@
 package core
 
-class Man {
-    var id = 0
+//first method
+abstract class Man(var name: String)
 
-    companion object {
-        var nextId: Int
+class Employee(var position: String,
+               name: String) : Man(name)
 
-        init {
-            nextId = getLastDbid()
-        }
+//second method
+abstract class Man {
+    public var name: String
 
-        fun getLastDbid(): Int {
-            //some implementation
-            return 0
-        }
+    constructor(name: String) {
+        this.name = name
+
     }
+}
 
-    init {
-        nextId++
-        id = nextId
+class Employee : Man {
+    var position: String
+
+    constructor(name: String, position: String) : super(name) {
+        this.position = position
     }
 }
 
 
-fun main() {
-    val man = Man()
-    //man.id is 1
-}
+val employee = Employee("booker", "Max")
