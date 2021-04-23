@@ -1,21 +1,16 @@
 package core
 
-class Greeting {
+class Calc {
     companion object {
-        fun sayGoodby(message: String = "Goodby!") {
-            println(message)
-        }
-
-        fun sayHello(message: String = "Hello!") {
-            println(message)
+        fun getSum(n1: Int, n2: Int): Int {
+            return n1 + n2
         }
     }
 }
 
 
 fun main() {
-    Greeting.sayGoodby()
-    //print "Goodby"
-    Greeting.sayHello("Hi")
-    //print "Hi"
+    val sum = Calc.getSum(5, 3)
+//sum is 8
+    println("sum = $sum")
 }
