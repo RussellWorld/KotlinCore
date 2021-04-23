@@ -1,18 +1,22 @@
 package core
 
-class Man {
-    var name: String
-    var country: String = ""
+abstract class Man {
+    val name: String
 
     constructor(name: String) {
         this.name = name
     }
+}
 
-    constructor(name: String, country: String) : this(name) {
-        this.country = country
+class Employee : Man {
+    val position: String
+
+    constructor(name: String) : super(name) {
+        this.position = "unknown"
     }
 }
 
 fun main() {
-    var man = Man("Vladimir", "Russia")
+    val employee = Employee("Max")
+    //employee.position is "unknown"
 }
