@@ -1,20 +1,23 @@
 package core
 
-class Log(var lastData: String) {
-    fun print5(data: String) {
-        lastData = data
-        if (data.length > 5) {
-            data = data.substring(0, 5)
-        } //<- Error
-        println(data)
-
+class Calc {
+    fun getAvg(vararg values: Double): Double {
+        if (values.size == 0) {
+            return 0.0
+        }
+        var sum = 0.0
+        for (value in values) {
+            sum += value
+        }
+        return sum / values.size
     }
 }
 
 
 fun main() {
-    val log = Log("")
-    log.print5("1234567")
-    //printed "12345"
-    println("lastData = ${log.lastData}")
+    val calc = Calc()
+    val avg = calc.getAvg(1.0, 2.0, 3.0, 4.0)
+    //avg is 2.5
+
+    println("avg = $avg")
 }
