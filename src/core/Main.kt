@@ -1,21 +1,13 @@
 package core
 
-class Counter {
-    var count = 0
-    fun incBy(value: Int) {
-        count += value
-    }
-
-    fun incBy(value: Int, amount: Int) {
-        count += value * amount
+class Greeting {
+    fun sayGoodluck() {
+        println("Goodluck!")
     }
 }
 
 
 fun main() {
-    val counter = Counter()
-    counter.incBy(1)
-    counter.incBy(2, 5)
-
-    println(counter.count)
+    val greeting = Greeting()
+    greeting.sayGoodluck()
 }
