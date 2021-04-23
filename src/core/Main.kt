@@ -1,18 +1,20 @@
 package core
 
-class Swap {
-    fun strings(s1: Array<String>, s2: Array<String>) {
-        val temp = s2[0]
-        s2[0] = s1[0]
-        s1[0] = temp
+class Log(var lastData: String) {
+    fun print5(data: String) {
+        lastData = data
+        if (data.length > 5) {
+            data = data.substring(0, 5)
+        } //<- Error
+        println(data)
+
     }
 }
 
 
 fun main() {
-    val s1 = arrayOf("A")
-    val s2 = arrayOf("B")
-    val swap = Swap()
-
-    //s1[0] is "B", s2[0] is "A"
+    val log = Log("")
+    log.print5("1234567")
+    //printed "12345"
+    println("lastData = ${log.lastData}")
 }
