@@ -1,23 +1,24 @@
 package core
 
 class Calc {
-    fun getAvg(vararg values: Double): Double {
-        if (values.size == 0) {
-            return 0.0
+    companion object{
+        fun getMin(vararg values: Int): Int{
+            if (values.isEmpty())
+                return 0
+            var min = values[0]
+            for (i in 1 until values.size){
+                if (values[i] < min)
+                    min = values[i]
+            }
+            return min
         }
-        var sum = 0.0
-        for (value in values) {
-            sum += value
-        }
-        return sum / values.size
     }
 }
 
 
 fun main() {
-    val calc = Calc()
-    val avg = calc.getAvg(1.0, 2.0, 3.0, 4.0)
-    //avg is 2.5
-
-    println("avg = $avg")
+    val min = Calc.getMin(3, 2, 5, 1, 4).apply {
+        println(this)
+    }
+    //min is 1
 }
