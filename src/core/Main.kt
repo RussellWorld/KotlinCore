@@ -1,26 +1,21 @@
 package core
 
-class Man {
-    var name: String
-    var country: String
+class Counter {
+    var count = 0
+    fun incBy(value: Int) {
+        count += value
+    }
 
-    constructor(name: String = "unknown", country: String = "unknown") {
-        this.name = name
-        this.country = name
+    fun incBy(value: Int, amount: Int) {
+        count += value * amount
     }
 }
 
 
 fun main() {
-    val man1 = Man()
-    //man1.name is "unknown"
-    //man1.country is "unknown"
+    val counter = Counter()
+    counter.incBy(1)
+    counter.incBy(2, 5)
 
-    val man2 = Man("Vladimir")
-    //man2.name is "Vladimir"
-    //man2.country is "unknown"
-
-    val man3 = Man("Vladimir", "Brazil")
-    //man3.name is "Vladimir"
-    //man3.country is "Brazil"
+    println(counter.count)
 }
