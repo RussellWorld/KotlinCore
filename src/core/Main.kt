@@ -1,28 +1,18 @@
 package core
 
-//first method
-abstract class Man(var name: String)
-
-class Employee(var position: String,
-               name: String) : Man(name)
-
-//second method
-abstract class Man {
-    public var name: String
+class Man {
+    var name: String
+    var country: String = ""
 
     constructor(name: String) {
         this.name = name
+    }
 
+    constructor(name: String, country: String) : this(name) {
+        this.country = country
     }
 }
 
-class Employee : Man {
-    var position: String
-
-    constructor(name: String, position: String) : super(name) {
-        this.position = position
-    }
+fun main() {
+    var man = Man("Vladimir", "Russia")
 }
-
-
-val employee = Employee("booker", "Max")
