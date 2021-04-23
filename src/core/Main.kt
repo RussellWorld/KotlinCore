@@ -1,24 +1,26 @@
 package core
 
-class Calc {
-    companion object{
-        fun getMin(vararg values: Int): Int{
-            if (values.isEmpty())
-                return 0
-            var min = values[0]
-            for (i in 1 until values.size){
-                if (values[i] < min)
-                    min = values[i]
-            }
-            return min
+class ArrayAssistant(var data: Array<Int>) {
+    fun getFirstLast(): Pair<Int, Int> {
+        var first = -1
+        var last = -1
+        val len = data.size
+        if (len > 0) {
+            first = data[0]
+            last = data[len - 1]
         }
+        return Pair(first, last)
     }
 }
 
 
 fun main() {
-    val min = Calc.getMin(3, 2, 5, 1, 4).apply {
-        println(this)
-    }
-    //min is 1
+    val ar = arrayOf(2, 3, 5)
+    val assistant = ArrayAssistant(ar)
+    val (first, last) = assistant.getFirstLast()
+    //first is 2
+    //last is 5
+
+    println("first = $first")
+    println("last = $last")
 }
