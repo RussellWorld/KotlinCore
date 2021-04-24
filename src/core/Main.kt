@@ -1,30 +1,29 @@
 package core
 
-open class Shape {
-    private var uid = 0
+//first method
+abstract class Shape(var lineCount: Int)
 
-    companion object {
-        private var maxUID = 0
-    }
+class Square(var sideLength: Int) : Shape(4)
 
-    fun getUID(): Int {
-        return uid
-    }
+//second method
+abstract class Shape {
+    public var lineCount: Int
 
-    init {
-        uid = ++maxUID
+    constructor(lineCount: Int) {
+        this.lineCount = lineCount
     }
 }
 
-class Square : Shape() {
-    init {
-        uid++ //<- Error
+class Square : Shape {
+    var sideLength: Int
+
+    constructor(sideLength: Int) : super(4) {
+        this.sideLength = sideLength
     }
 }
 
 fun main() {
-    val square = Square()
-    val uid = square.getUID()
-    //uid is 1
-    uid = square.uid //<- Error
+    val square = Square(4)
+    //square.lineCount is 4
+
 }
