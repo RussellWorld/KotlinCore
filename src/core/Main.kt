@@ -1,19 +1,23 @@
 package core
 
 
-open class Shape {}
+open class Shape {
+    open val name: String
+        get() = "Shape"
+}
 
-open class Square : Shape()
-
-open class redSquare : Shape()
+open class Square : Shape() {
+    override val name: String
+        get() = "Square"
+}
 
 
 fun main() {
-    val square = Square()
-    val isShape = square is Shape
-    //isShape is True
-    val isRedSquare = square is redSquare
-    //isRedSquare is False
-    println(isShape)
-    println(isRedSquare)
+    var square = Square()
+
+    //implicit method
+    val shape1: Shape = square
+
+    //explicit first method
+    val shape2 = square as Shape
 }
