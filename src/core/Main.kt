@@ -1,29 +1,28 @@
 package core
 
-//first method
-abstract class Shape(var lineCount: Int)
 
-class Square(var sideLength: Int) : Shape(4)
-
-//second method
 abstract class Shape {
-    public var lineCount: Int
+    var color = ""
 
-    constructor(lineCount: Int) {
-        this.lineCount = lineCount
+    abstract fun fill(color: String)
+
+    fun draw() {
+        println(color)
     }
 }
 
 class Square : Shape {
-    var sideLength: Int
-
-    constructor(sideLength: Int) : super(4) {
-        this.sideLength = sideLength
+    override fun fill(color: String) {
+        this.color = color
     }
 }
 
+
 fun main() {
-    val square = Square(4)
-    //square.lineCount is 4
+    val shape = Shape() //<- Error
+
+    val square = Square()
+    square.fill("Red")
+    square.draw()
 
 }
