@@ -1,11 +1,12 @@
 package core
 
-class FilmList() {
-    val count: Int = 10
+class Circle(val radius: Double) {
+    val area: Double
+        get() = Math.PI * Math.pow(radius, 2.0)
 }
 
 fun main() {
-    var filmList = FilmList()
-    var count = filmList.count
-    //count is 10
+    val circle = Circle(2.0)
+    //circle.Area is 12.56
+    println(circle.area)
 }
