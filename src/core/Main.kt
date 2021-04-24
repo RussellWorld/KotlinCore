@@ -1,16 +1,7 @@
 package core
 
-open class Shape {
-    protected var lineCount: Int = 0
-}
+open class Shape {}
 
-class Square : Shape() {
-    init {
-        lineCount = 4
-    }
-}
+class Square : Shape() {}
 
-fun main() {
-    val square = Square(5)
-    var lineCount = square.lineCount // <= Error
-}
+class RedSquare : Square() {} //<= Error
