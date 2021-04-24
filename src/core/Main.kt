@@ -1,21 +1,18 @@
 package core
 
-import kotlin.math.pow
 
-class PowerOfTwo {
-    operator fun get(i: Int): Int {
-        return 2.0.pow(i.toDouble()).toInt()
+class Country(var info: Map<String, Any>) {
+    operator fun <T> get(key: String): T? {
+        return info[key] as T?
     }
 }
 
 
 fun main() {
-    val power2 = PowerOfTwo()
-    val p2 = power2[2]
-    //p2 is 4
-    val p8 = power2[8]
-    //p8 is 256
-    val p16 = power2[16]
-    //p16 is 65546
-    println("p2 = $p2, p8 = $p8, p16 = $p16")
+    val france = Country(mapOf("Name" to "France", "Population" to 66_991_000))
+    val name: String? = france["Name"]
+    //name is "France"
+    val population: Int? = france["Population"]
+    //population is 66991000
+
 }
