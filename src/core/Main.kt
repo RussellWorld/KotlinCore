@@ -1,14 +1,31 @@
 package core
 
 fun main() {
-    val square = Shape(4, "Square")
-    val squareCopy = square.copy()
+    val connection1 = Config.getConnection()
+    //connection is "10.0.0.1:52"
 
-    println(squareCopy.name)
+    Config.host = "10.0.0.3"
+    val connection2 = Config.getConnection()
+    //connection is "10.0.0.3:52"
 }
 
-class Shape(val lineCount: Int, val name: String) {
-    fun copy(): Shape {
-        return Shape(lineCount, name)
+class Config {
+    companion object {
+        //type constant
+        val maxConnections = 3
+
+        //type fields
+        var host = ""
+        var port = 52
+
+        //type method
+        fun getConnection(): String {
+            return "$host:$port"
+        }
+
+        //type constructor
+        init {
+            host = "10.0.0.1"
+        }
     }
 }
