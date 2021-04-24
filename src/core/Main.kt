@@ -1,7 +1,19 @@
 package core
 
-open class Shape {}
+open class Shape {
+    open fun getArea(): Int {
+        return 0
+    }
+}
 
-class Square : Shape() {}
+open class Square(var sideLength: Int) : Shape() {
+    override fun getArea(): Int {
+        return sideLength * sideLength
+    }
+}
 
-class RedSquare : Square() {} //<= Error
+
+open class RedSquare(var sideLength: Int) : Square(sideLength) {
+    override fun getArea(): Int { //<= Error
+    }
+}
