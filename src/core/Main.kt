@@ -1,18 +1,19 @@
 package core
 
-class Car(var Mark: String = "")
+class Point1(var x: Int, var y: Int)
+
+class Point2() {
+    var x: Double = 0.0
+    var y: Double = 0.0
+}
 
 fun main() {
-    val car1 = Car()
-    val car2 = Car()
-    val car3 = car1
+    val point1 = Point1(2, 5)
+    val point2 = Point2()
+    //x and y is 0.0 (before assigning)
+    point2.x = 3.0
+    point2.y = 7.0
 
-    val equal1 = car1 == car2
-    //equal1 is False
-
-    val equal2 = car1 == car3
-    //equal2 is True
-
-    println(equal1)
-    println(equal2)
+    println(point1.y)
+    println(point2.x)
 }
