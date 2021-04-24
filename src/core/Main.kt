@@ -1,21 +1,19 @@
 package core
 
 
-open class Shape {
-    open fun fill(color: String) {
-        println("Fill implementation")
-    }
-}
+open class Shape {}
 
-class Square : Shape() {
-    override fun fill(color: String) {
-        println("New fill implementation")
-    }
-}
+open class Square : Shape()
+
+open class redSquare : Shape()
 
 
 fun main() {
-    var square = Square()
-    square.fill("Red")
-    //Use Square new fill implementation
+    val square = Square()
+    val isShape = square is Shape
+    //isShape is True
+    val isRedSquare = square is redSquare
+    //isRedSquare is False
+    println(isShape)
+    println(isRedSquare)
 }
