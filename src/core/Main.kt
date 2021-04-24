@@ -1,18 +1,20 @@
 package core
 
-class Lesson {
-    companion object {
-        var lessonsCount = 0
-    }
+import kotlin.math.sqrt
 
-    init {
-        lessonsCount++
-    }
+class Square(var side: Double) {
+    var area: Double
+        get() = side * side
+        set(value) {
+            side = sqrt(value)
+        }
 }
 
 fun main() {
-    val lessons1 = Lesson()
-    //Lesson.lessonsCount is 1
-    val lessons2 = Lesson()
-    //Lesson.lessonsCount is 2
+    val square = Square(2.0)
+    //square.area is 4.0
+    println(square.area)
+
+    square.area = 9.0
+    //square.side is 3.0
 }
