@@ -1,17 +1,27 @@
 package core
 
+import core.IShape as IShape1
 
-open class Shape {
-    open fun getArea(): Int {
-        return 0
-    }
+
+interface IShape {
+    var lineCount: Int
+    fun getArea(): Int
 }
 
-class Square(var sideLength: Int) : Shape() {
+class Square : IShape1 {
+    override var lineCount: Int
+    var sideLenght: Int
+
+    constructor(sideLenght: Int) {
+        this.sideLenght = sideLenght
+        this.lineCount = 4
+    }
+
     override fun getArea(): Int {
-        return sideLength * sideLength
+        return sideLenght * sideLenght
     }
 }
+
 
 fun main() {
     var square = Square(5)
