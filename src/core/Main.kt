@@ -1,19 +1,30 @@
 package core
 
 open class Shape {
-    open fun getArea(): Int {
-        return 0
+    private var uid = 0
+
+    companion object {
+        private var maxUID = 0
+    }
+
+    fun getUID(): Int {
+        return uid
+    }
+
+    init {
+        uid = ++maxUID
     }
 }
 
-open class Square(var sideLength: Int) : Shape() {
-    override fun getArea(): Int {
-        return sideLength * sideLength
+class Square : Shape() {
+    init {
+        uid++ //<- Error
     }
 }
 
-
-open class RedSquare(var sideLength: Int) : Square(sideLength) {
-    override fun getArea(): Int { //<= Error
-    }
+fun main() {
+    val square = Square()
+    val uid = square.getUID()
+    //uid is 1
+    uid = square.uid //<- Error
 }
