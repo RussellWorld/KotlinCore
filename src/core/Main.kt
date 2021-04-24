@@ -1,12 +1,10 @@
 package core
 
-//Definition
-class SomeClass {
+class Game {
+    //public field
+    var name = ""
+    var year = 0
 
-}
-
-fun main() {
-    //Initialization
-    var someClass = SomeClass()
-
+    //private field
+    private var developer = ""
 }
