@@ -1,12 +1,18 @@
 package core
 
-class Circle(val radius: Double) {
-    val area: Double
-        get() = Math.PI * Math.pow(radius, 2.0)
+class Lesson {
+    companion object {
+        var lessonsCount = 0
+    }
+
+    init {
+        lessonsCount++
+    }
 }
 
 fun main() {
-    val circle = Circle(2.0)
-    //circle.Area is 12.56
-    println(circle.area)
+    val lessons1 = Lesson()
+    //Lesson.lessonsCount is 1
+    val lessons2 = Lesson()
+    //Lesson.lessonsCount is 2
 }
