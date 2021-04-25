@@ -2,25 +2,23 @@ package core
 
 fun main() {
     val p1 = Point(1, 2)
-    val str1 = p1.toText()
-    //str1 is "x = 1; y = 2"
+    //p1.x is 1 and p1.y is 2
 
-    p1.move(5, -1)
-    val str2 = p1.toText()
-    //str2 is "x = 6; y = 1"
+    val p2 = Point()
+    //p2.x is 0 and p2.y is 0
 
-    println(str1)
-    println(str2)
+    println("p1 is (${p1.x}, ${p1.y})")
+    println("p1 is (${p2.x}, ${p2.y})")
 
 }
 
-class Point(var x: Int, var y: Int) {
-    fun toText(): String {
-        return "x = $x, y = $y"
-    }
+class Point {
+    var x = 0
+    var y = 0
 
-    fun move(right: Int, down: Int) {
-        x += right
-        y += down
+    constructor()
+    constructor(x: Int, y: Int) {
+        this.x = x
+        this.y = y
     }
 }
