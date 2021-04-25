@@ -1,21 +1,19 @@
 package core
 
 fun main() {
-    val ar = arrayOf(2, 3, 6, 7)
-    val (first, last) = getFirstLast(ar)
-    //first is 2
-    //last is 7
-    println("first = $first, last = $last")
+    val avg = GetAvg(1.0, 2.0, 3.0, 4.0)
+    //avg is 2.5
+
+    println(avg)
 }
 
-fun getFirstLast(ar: Array<Int>): Pair<Int, Int> {
-    var first = -1
-    var last = -1
-
-    if (ar.isNotEmpty()) {   //ar.size > 0
-        first = ar[0]
-        last = ar[ar.size - 1]
+fun GetAvg(vararg values: Double): Double {
+    if (values.isEmpty()) {            //values.size == 0
+        return 0.0
     }
-    return Pair(first, last)
+    var sum = 0.0
+    for (value in values) {
+        sum += value
+    }
+    return sum / values.size
 }
-
