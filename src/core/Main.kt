@@ -7,18 +7,16 @@ import kotlin.math.sqrt
 fun main() {
     val p1 = Point(1.0, 3.0)
     val p2 = Point(2.0, 4.0)
-    val distance = Point.distanceTo(p1, p2)
+    val distance = p1.distanceTo(p2)
     //distance is 1.4142
     println(distance)
 
 }
 
-class Point(var x: Double, var y: Double) {
-    companion object {}
-}
+class Point(var x: Double, var y: Double)
 
-fun Point.Companion.distanceTo(p1: Point, p2: Point): Double {
-    val d1 = pow(p1.x - p2.x, 2.0)
-    val d2 = (p1.y - p2.y).pow(2.0)
+fun Point.distanceTo(p: Point): Double {
+    val d1 = pow(this.x - p.x, 2.0)
+    val d2 = (this.y - p.y).pow(2.0)
     return sqrt(d1 + d2)
 }
