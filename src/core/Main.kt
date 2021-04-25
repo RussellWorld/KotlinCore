@@ -1,12 +1,20 @@
 package core
 
 fun main() {
-    val p1 = ColorPoint(0, 0)
-    val x1 = p1.x
-    //x1 is 0
+    val redPoint = RedPoint(1, 2)
 
-    val p2: ColorPoint
-    val x2 = p2.x // <- Error
+    println(redPoint.toText())
+
 }
 
-class ColorPoint(var x: Int, var y: Int)
+interface IText {
+    fun toText(): String
+}
+
+open class Point(var x: Int, var y: Int) : IText {
+    override fun toText(): String {
+        return "x = $x, y = $y"
+    }
+}
+
+class RedPoint(x: Int, y: Int) : Point(x, y)
