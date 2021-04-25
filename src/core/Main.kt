@@ -1,11 +1,21 @@
 package core
 
-import java.util.*
+import kotlin.math.ceil
+import kotlin.math.floor
+import kotlin.math.round
 
 fun main() {
-    val value = Random().nextDouble()
-    println(value)
-    //value double between 0.0 and 1.0
+    val pi = 3.1415
+    var piRound = round(pi * 1000) / 1000.0
+    //piRound is 3.142
+
+    var piTrunc = floor(pi * 1000) / 1000
+    //piTrunc is 3.141
+
+    var piCeil = ceil(pi * 100) / 100
+    //piCell is 3.15
+
+    println(piCeil)
 
 }
 
