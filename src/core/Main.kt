@@ -1,14 +1,12 @@
 package core
 
 fun main() {
-    val boldLine = BoldLine()
-    val width = boldLine.LINEWIDTH
-
-    println(width)
-//width is 10
+    val sum = getSum(5, 3)
+    //sum is 8
+    println("sum = $sum")
 }
 
-class BoldLine {
-    val LINEWIDTH = 10
+fun getSum(n1: Int, n2: Int): Int {
+    return n1 + n2
 }
 
