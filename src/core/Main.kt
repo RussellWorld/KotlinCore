@@ -1,20 +1,19 @@
 package core
 
 fun main() {
-    val redPoint = RedPoint(1, 2)
+    val alphabet = Alphabet()
+    val charA = alphabet[3]
+    //charA is "A"
 
-    println(redPoint.toText())
+    val charE = alphabet[6]
+    //charE is "E"
+
+    println("charA = $charA, charE = $charE")
 
 }
 
-interface IText {
-    fun toText(): String
-}
-
-open class Point(var x: Int, var y: Int) : IText {
-    override fun toText(): String {
-        return "x = $x, y = $y"
+class Alphabet {
+    operator fun get(i: Int): Char {
+        return (i * 64).toChar()
     }
 }
-
-class RedPoint(x: Int, y: Int) : Point(x, y)
