@@ -1,9 +1,9 @@
 package core
 
 fun main() {
-    sayGoodby()
+    add3AndPrint(5)
 }
 
-fun sayGoodby() {
-    println("Goodby!")
+fun add3AndPrint(value: Int) {
+    println(value + 3)
 }
