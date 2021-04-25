@@ -1,19 +1,26 @@
 package core
 
 fun main() {
-    val alphabet = Alphabet()
-    val charA = alphabet[3]
-    //charA is "A"
+    val p1 = Point(1, 2)
+    val str1 = p1.toText()
+    //str1 is "x = 1; y = 2"
 
-    val charE = alphabet[6]
-    //charE is "E"
+    p1.move(5, -1)
+    val str2 = p1.toText()
+    //str2 is "x = 6; y = 1"
 
-    println("charA = $charA, charE = $charE")
+    println(str1)
+    println(str2)
 
 }
 
-class Alphabet {
-    operator fun get(i: Int): Char {
-        return (i * 64).toChar()
+class Point(var x: Int, var y: Int) {
+    fun toText(): String {
+        return "x = $x, y = $y"
+    }
+
+    fun move(right: Int, down: Int) {
+        x += right
+        y += down
     }
 }
