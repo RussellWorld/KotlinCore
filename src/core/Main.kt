@@ -1,22 +1,31 @@
 package core
 
+import java.text.DecimalFormat
+
 
 fun main() {
-    //the first method
-    val strPi = "3.14"
-    val pi = strPi.toFloat()
-    println(pi)
+    val exp = 2.798798797
 
-    //the second method
-    val strExp = "2.71828"
-    val exp = strExp.toFloatOrNull()
-    if (exp != null) {
-        println(exp)
-    }
+    val s1 = exp.toString()
+    println(s1)
+    //s1 is 2.798798797
 
-    //the third method
-    val strHalf = "0,5"
-    val half = strHalf.replace(",", ".").toDouble()
-    println(half)
+    val s2 = "%.3f".format(exp)
+    println(s2)
+    //s2 is 2.799
+
+    val s3 = "%2.2e".format(exp / 100)
+    println(s3)
+    //s3 is 2.80e-02
+
+    val df = DecimalFormat("#,###.00")
+    var symbols = df.decimalFormatSymbols
+    symbols.groupingSeparator = ' '
+    df.decimalFormatSymbols = symbols
+    val s4 = df.format(exp * 1_000_000)
+    println(s4)
+    //s4 is 2 798 798.797
+
+
 }
 
