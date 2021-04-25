@@ -1,31 +1,19 @@
 package core
 
 fun main() {
-    val connection1 = Config.getConnection()
-    //connection is "10.0.0.1:52"
-
-    Config.host = "10.0.0.3"
-    val connection2 = Config.getConnection()
-    //connection is "10.0.0.3:52"
+    Setting.mode = 3
+    Setting.setNextMode()
 }
 
-class Config {
+class Setting {
     companion object {
-        //type constant
-        val maxConnections = 3
-
-        //type fields
-        var host = ""
-        var port = 52
+        //type property
+        var path = ""
+        var mode: Int = 0
 
         //type method
-        fun getConnection(): String {
-            return "$host:$port"
-        }
-
-        //type constructor
-        init {
-            host = "10.0.0.1"
+        fun setNextMode() {
+            mode = (mode + 1) % 3
         }
     }
 }
