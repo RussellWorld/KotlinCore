@@ -2,12 +2,15 @@ package core
 
 
 fun main() {
-    var str = "1-/[=2=/]-3"
-    val separators = "[=/\\[]|]"
-    str = str.replace(
-            separators.toRegex(), ""
-    )
-    //str is 1-2-3
-    println(str)
+    var dataString = StringBuilder("string")
+
+    dataString = dataString.insert(0, "Sub")
+    //dataString is "Substring"
+
+    dataString = dataString.append("!")
+    //dataString is "Substring!"
+
+    dataString = dataString.insert(9, " inserting")
+    //dataString is "Substring inserting!"
 }
 
