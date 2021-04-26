@@ -2,11 +2,14 @@ package core
 
 
 fun main() {
-    val someEmptyString = ""
+    var dataString = "Substring removing!"
 
-    if (someEmptyString.isEmpty()) {
-        println("string is empty")
-    }
+    dataString = dataString.removeRange(9..17)
+    //dataString is "Substring!"
+
+    dataString = dataString.removePrefix("Sub")
+    //dataString is "String"
+
 
 }
 
