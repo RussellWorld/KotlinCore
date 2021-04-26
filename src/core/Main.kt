@@ -2,17 +2,12 @@ package core
 
 
 fun main() {
-    val stringReverse = Reverse("String")
-    //stringReverse is gnirtS
-    println(stringReverse)
+    val str = "Lower and upper"
+
+    val lower = str.toLowerCase()
+    println(lower)
+
+    val upper = str.toUpperCase()
+    println(upper)
 }
 
-fun Reverse(word: String): String {
-    //Character count
-    val charCount = word.length
-    var result = ""
-    for (i in charCount - 1 downTo 0) {
-        result += word[i]
-    }
-    return result
-}
