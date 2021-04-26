@@ -1,16 +1,25 @@
 package core
 
 import java.lang.Exception
-import java.lang.RuntimeException
 
 fun main() {
+   throwIfTrue(true)
+    //printed: "catch" and "finally"
+    throwIfTrue(false)
 
 }
 
-fun methodWithException(): Nothing {
-    throw Exception("test exception")
+fun throwIfTrue(param: Boolean){
+    try {
+        if (param){
+            throw Exception("test exception")
+        }
+    }
+    catch (e: Exception){
+        println("catch")
+    }
+    finally {
+        println("finally")
+    }
 }
 
-fun methodWithRuntimeException() {
-    throw RuntimeException("test exception")
-}
