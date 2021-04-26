@@ -3,16 +3,22 @@ package core
 import java.lang.Exception
 
 fun main() {
-    throw SimpleException()
-
-    throw RecommendExc("exception")
-
+    try {
+        trowWhenNullOrEmpty(null)
+    } catch (e: Exception) {
+        println("Error happened")
+    }
 }
 
-class SimpleException : Exception() {}
+class IsNullException : Exception() {}
 
-class RecommendExc : Exception {
-    //recommended constructors
-    constructor() : super()
-    constructor(message: String) : super(message)
+class IsEmptyException : Exception() {}
+
+fun trowWhenNullOrEmpty(list: Array<Int>?) {
+    if (list.isNullOrEmpty()) {
+        throw IsNullException()
+    }
+    if (!list.any()) {
+        throw IsEmptyException()
+    }
 }
