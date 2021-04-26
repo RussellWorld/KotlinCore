@@ -1,16 +1,15 @@
 package core
 
 fun main() {
-    var latitude = 0
-    var location: String
+    val A = 3
+    val B = 5
+    val C = 7
+    if (C >= A && C >= B) {
+        println("nothing is lager than C.")
+    }
+    if (!(A >= B || A >= C)) {
+        println("A is the smallest")
+    }
 
-    if (latitude == 0)
-        location = "Equator"
-    else if (latitude == 90)
-        location = "north Pole"
-    else if (latitude == -90)
-        location = "south Pole"
-    else
-        location = "not at the Equator or Pole"
 }
 
