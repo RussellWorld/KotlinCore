@@ -1,15 +1,20 @@
 package core
 
 fun main() {
-    val A = 3
-    val B = 5
-    val C = 7
-    if (C >= A && C >= B) {
-        println("nothing is lager than C.")
-    }
-    if (!(A >= B || A >= C)) {
-        println("A is the smallest")
-    }
+
+    println(describe(42))
 
 }
+
+class Tiger {}
+
+fun describe(obj: Any): String =
+        when (obj) {
+            2 -> "two"
+            is Tiger -> "Tiger!"
+            "Error" -> "Error String"
+            is Int -> "Int type"
+            !is String -> "Not a string"
+            else -> "Unknown type"
+        }
 
