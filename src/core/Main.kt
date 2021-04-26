@@ -1,8 +1,9 @@
 package core
 
 fun main() {
-    val winter = Season.values()[2]
-    println(winter)
+    val winter = Season.Winter
+    val valuePosition = winter.ordinal
+    println(valuePosition)
 }
 
 enum class Season {
