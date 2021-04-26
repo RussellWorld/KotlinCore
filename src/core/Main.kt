@@ -2,14 +2,17 @@ package core
 
 
 fun main() {
-    val str = "level"
-    for (c in str) {
-        println(c)
-    }
-
-    //Iterating with index
-    for ((i, c) in str.withIndex()) {
-        println("str[$i] = $c")
-    }
+    val stringReverse = Reverse("String")
+    //stringReverse is gnirtS
+    println(stringReverse)
 }
 
+fun Reverse(word: String): String {
+    //Character count
+    val charCount = word.length
+    var result = ""
+    for (i in charCount - 1 downTo 0) {
+        result += word[i]
+    }
+    return result
+}
