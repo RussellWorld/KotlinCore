@@ -2,14 +2,14 @@ package core
 
 
 fun main() {
-    val n: Int? = 2
+    // \t Insert a tab
+    // \b Insert a backspace
+    // \n Insert a newline
+    // \r Insert a carriage return
+    // \' or ' Insert a single quote
+    // \" Insert a double quote
+    // \\ Insert a backlash character
 
-    var value = n ?: -1
-
-    //which is equal to
-    if (n != null)
-        value = n
-    else
-        value = -1
+    println("She said \"Hello!\" to me.")
 }
 
