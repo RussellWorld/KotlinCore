@@ -1,24 +1,25 @@
 package core
 
-import java.lang.Exception
 
 fun main() {
-    try {
-        methodWithException()
-    } catch (e: Exception) {
-        println(e.message)
-    }
+    val nokiaPhone = Phone()
+    nokiaPhone.model = "Nokia 6610"
+
+    val kim = Employee()
+    kim.firstName = "Victoriya"
+    kim.lastName = "Kim"
+    kim.personalPhone = nokiaPhone
+
+    println(kim.personalPhone.model)
 }
 
-
-fun methodWithException() {
-    try {
-        throw Exception("test exception")
-    } catch (e: Exception) {
-        //implementation of any partial processing
-        //and send error to the calling code
-        throw e
-
-    }
+class Phone {
+    var model = ""
 }
 
+class Employee {
+    var firstName = ""
+    var lastName = ""
+    lateinit var personalPhone: Phone
+
+}
