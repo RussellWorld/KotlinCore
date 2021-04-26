@@ -2,34 +2,26 @@ package core
 
 
 fun main() {
-    val size = Size()
-    size.width = 10
-    size.height = 10
+    var languages = hashMapOf(
+            "ru" to "russian",
+            "en" to "english"
+    )
 
-    val point = Point()
-    point.x = 5
-    point.y = 5
+    var numbers = hashMapOf(
+            1 to "one",
+            2 to "two",
+            3 to "three"
+    )
 
-    val rect = Rect()
-    rect.size = size
-    rect.point
+    var employees = hashMapOf(
+            1 to Employee("Pavlov", "Anton"),
+            2 to Employee("Pavlov", "Anton")
+    )
 
-    println(rect.point.x)
+    println(languages["ru"])
+    println(numbers[1])
+    println(employees[1]?.FirstName)
 }
 
-class Point {
-    var x = 0
-    var y = 0
-}
-
-class Size {
-    var wigth = 0
-    var height = 0
-
-}
-
-class Rect {
-    lateinit var size: Size
-    lateinit var point: Point
-}
+class Employee(val FirstName: String, val LastName: String)
 
