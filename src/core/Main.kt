@@ -2,15 +2,34 @@ package core
 
 
 fun main() {
-    var rect = Rect(Size(10, 10), Point(5, 5))
+    val size = Size()
+    size.width = 10
+    size.height = 10
+
+    val point = Point()
+    point.x = 5
+    point.y = 5
+
+    val rect = Rect()
+    rect.size = size
+    rect.point
 
     println(rect.point.x)
-    println(rect.size.height)
 }
 
-class Point(var x: Int, var y: Int) {}
+class Point {
+    var x = 0
+    var y = 0
+}
 
-class Size(var width: Int, var height: Int) {}
+class Size {
+    var wigth = 0
+    var height = 0
 
-class Rect(var size: Size, val point: Point) {}
+}
+
+class Rect {
+    lateinit var size: Size
+    lateinit var point: Point
+}
 
