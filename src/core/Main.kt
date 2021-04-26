@@ -4,21 +4,21 @@ import java.lang.Exception
 
 fun main() {
     try {
-        trowWhenNullOrEmpty(null)
+        methodWithException()
     } catch (e: Exception) {
-        println("Error happened")
+        println(e.message)
     }
 }
 
-class IsNullException : Exception() {}
 
-class IsEmptyException : Exception() {}
+fun methodWithException() {
+    try {
+        throw Exception("test exception")
+    } catch (e: Exception) {
+        //implementation of any partial processing
+        //and send error to the calling code
+        throw e
 
-fun trowWhenNullOrEmpty(list: Array<Int>?) {
-    if (list.isNullOrEmpty()) {
-        throw IsNullException()
-    }
-    if (!list.any()) {
-        throw IsEmptyException()
     }
 }
+
