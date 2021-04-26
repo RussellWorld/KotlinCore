@@ -1,22 +1,18 @@
 package core
 
 fun main() {
-
-}
-
-fun PrintSomeData(printAll: Boolean) {
-    PrintMainData()
-    if (!printAll) {
-        return
+val numbers = arrayOf(2, 3, 5, 7, 11, 13, 17, 19)
+    var str = ""
+    for (i in numbers.indices){
+        if (i%2 == 1){
+            continue
+        }
+        if (str.isNotEmpty()){
+            str += "-"
+        }
+        str += numbers[i]
     }
-    PrintOtherData()
-}
-
-fun PrintOtherData() {
-    TODO("Not yet implemented")
-}
-
-fun PrintMainData() {
-    TODO("Not yet implemented")
+    //str is "2-5-11-17"
+    println(str)
 }
 
