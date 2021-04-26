@@ -1,15 +1,20 @@
 package core
 
 fun main() {
-    var sNumber = "1"
-    var numberList = ""
+    val numbers = arrayOf(1, 2, 3)
+    val isContain2 = ContaintNumber(numbers, 2)
+    //isContain2 is true
 
-    if (sNumber <= "1") numberList = "1"
-    if (sNumber <= "2") numberList += "-2"
-    if (sNumber <= "3") numberList += "-3"
-
-    println(numberList)
+    val isContain4 = ContaintNumber(numbers, 4)
+    //isContain4 is false
 
 }
 
+fun ContaintNumber(numbers: Array<Int>, number: Int): Boolean {
+    for (currentNumber in numbers) {
+        if (currentNumber == number)
+            return true
+    }
+    return false
+}
 
