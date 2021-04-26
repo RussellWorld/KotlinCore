@@ -1,19 +1,16 @@
 package core
 
 
-import java.util.*
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
 
 fun main() {
-    val now = Date()
-    val cal = Calendar.getInstance()
-    cal.add(Calendar.DAY_OF_YEAR, -1)
-    val yesteday = cal.time
+    val stringDate = "1945-05-09 01:00"
 
-    val areEqual = now == yesteday
-    //areEquale is False
-    val areLater = now.after(yesteday)
-    //areLater is True
-    val areEarlier = now.compareTo(yesteday) < 0
-    //areEarlier is False
+    val df = DateTimeFormatter.ofPattern(
+            "yyyy-MM-dd HH:mm"
+    )
+    val victoryDate = LocalDateTime.parse(stringDate, df)
 }
 
