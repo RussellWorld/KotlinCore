@@ -1,15 +1,16 @@
 package core
 
 fun main() {
-    while (true) {
-        //statements
-        var i = 0
-        i++
-        println(i * 2)
+    var latitude = 0
+    var location: String
 
-    }
-    do {
-
-    } while (true)
+    if (latitude == 0)
+        location = "Equator"
+    else if (latitude == 90)
+        location = "north Pole"
+    else if (latitude == -90)
+        location = "south Pole"
+    else
+        location = "not at the Equator or Pole"
 }
 
