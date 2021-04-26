@@ -1,11 +1,24 @@
 package core
 
 fun main() {
-    val winter = Season.Winter
-    val valuePosition = winter.ordinal
-    println(valuePosition)
+    var p = Point(1, 1)
+    p++
+    //p.x is 2 and p.y is 2
+    println("(${p.x}, ${p.y})")
+    ++p
+    //p.x is 3 and p.y is 3
+    println("(${p.x}, ${p.y})")
+    p = -p
+    //p.x is -3 and p.y is -3
+    println("(${p.x}, ${p.y})")
 }
 
-enum class Season {
-    Summer, Fall, Winter, Spring
+class Point(var x: Int, var y: Int) {
+    operator fun inc(): Point {
+        return Point(++x, ++y)
+    }
+
+    operator fun unaryMinus(): Point {
+        return Point(-x, -y)
+    }
 }
