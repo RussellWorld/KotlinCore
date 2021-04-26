@@ -1,7 +1,8 @@
 package core
 
 fun main() {
-    val summer = Season.valueOf("Summer")
+    val summer = Season.Summer.toString()
+    //val strValue = summer.toString()
     println(summer)
 }
 
