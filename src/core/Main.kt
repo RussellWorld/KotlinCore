@@ -2,14 +2,13 @@ package core
 
 fun main() {
     val dic = mapOf(
-            1 to "one", 2 to null
+            3 to "B", 2 to "A", 1 to "C"
     )
-    val exists1 = dic.containsKey(1) //true
-    val exists2 = dic.containsKey(2) //true
-    val exists3 = dic.containsKey(3) //false
+    val sortedDic = dic.toList()
+            .sortedBy { (_, value) -> value }
+            .toMap()
+    //sortedDic is {2=A, 3=B, 1=C}
 
-    println(exists1)
-    println(exists2)
-    println(exists3)
+    println(sortedDic)
 }
 
