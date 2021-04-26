@@ -2,18 +2,15 @@ package core
 
 
 fun main() {
-    val nokiaPhone = Phone("Nokia 6610")
+    var rect = Rect(Size(10, 10), Point(5, 5))
 
-    val kim = Employee("Victoriya",
-    "Kim",
-    nokiaPhone)
-
-    println(nokiaPhone.model)
-    println(kim.personalPhone.model)
+    println(rect.point.x)
+    println(rect.size.height)
 }
 
-class Phone(var model: String)
+class Point(var x: Int, var y: Int) {}
 
-class Employee(var firstName: String,
-               var lastName: String,
-               var personalPhone: Phone)
+class Size(var width: Int, var height: Int) {}
+
+class Rect(var size: Size, val point: Point) {}
+
