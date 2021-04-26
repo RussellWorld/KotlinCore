@@ -2,8 +2,14 @@ package core
 
 
 fun main() {
-    val numbers = arrayOf("one", "two", "three")
-    val numberList = numbers.joinToString { "; " }
-    //nuberList is "one; two; three"
+    val str = "level"
+    for (c in str) {
+        println(c)
+    }
+
+    //Iterating with index
+    for ((i, c) in str.withIndex()) {
+        println("str[$i] = $c")
+    }
 }
 
