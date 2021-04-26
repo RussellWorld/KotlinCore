@@ -1,17 +1,20 @@
 package core
 
 fun main() {
-    var firstMatchValue = -1
-    val array1 = arrayOf(1, 2, 3)
-    val array2 = arrayOf(2, 3, 4)
-
-    firstLoop@ for (value1 in array1) {
-        for (value2 in array2) {
-            if (value1 == value2){
-                firstMatchValue = value2
-                break@firstLoop
-            }
-        }
+    var rect = Rect(Point(3, 4), Size(10, 12))
+    //There is no with expression in Kotlin
+    rect.point.apply {
+        x += 1
+        y += 1
     }
+
 }
+
+class Point(var x: Int, var y: Int) {}
+
+class Size(var width: Int, var height: Int) {}
+
+class Rect(val point: Point, var size: Size) {}
+
+
 
