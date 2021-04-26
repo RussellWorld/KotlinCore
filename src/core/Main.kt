@@ -1,24 +1,16 @@
 package core
 
 import java.lang.Exception
+import java.lang.RuntimeException
 
 fun main() {
-    val seller = Seller()
-    try {
-        seller.sell() // <- Error
-    } catch (e: Exception) {
-        println(e.message)
-        //e.message is "no car for sale
-    }
+
 }
 
-class Car {}
+fun methodWithException(): Nothing {
+    throw Exception("test exception")
+}
 
-class Seller {
-    var cars = arrayOf<Car>()
-    fun sell() {
-        if (!cars.any()) {
-            throw Exception("No cars for sale")
-        }
-    }
+fun methodWithRuntimeException() {
+    throw RuntimeException("test exception")
 }
