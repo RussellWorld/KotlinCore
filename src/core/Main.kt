@@ -2,16 +2,13 @@ package core
 
 fun main() {
     val dic = mapOf(
-            1 to "one", 2 to "two"
+            1 to "A", 2 to "B", 3 to "A"
     )
-    var str = ""
-    for ((k, v) in dic) {
-        if (str.isNotEmpty()) {
-            str += ", "
-        }
-        str += "{$k, \"$v\" }"
-        //str is { 1, "One"} , {2, "two" }
-    }
-    println(str)
+    val value = "A"
+
+    val keys = dic.toList()
+            .filter { (_, v) -> v == value }
+            .toMap().keys
+    //keys is [1, 3]
 }
 
