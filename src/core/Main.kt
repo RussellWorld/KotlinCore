@@ -2,18 +2,19 @@ package core
 
 
 fun main() {
-    val first = "A"
-    val second = "B"
-    val third = "A"
+    val strData = "1981|Kim Victoriya|engineer"
+    val arrData = strData.split("|")
 
-    val areEqual1 = first == second
-    //areEqual1 is false
+    val year = arrData[0].toInt()
+    //year is 1981
 
-    val areNotEqual = first != second
-    //areNotEqual is true
+    val name = arrData[1]
+    //name is Kim Victoriya
 
-    val areEqual2 = first.compareTo(third) == 0
-    //areEqual2 is true
+    val position = arrData[2]
+    //position is engeneer
+
+    println("$year $name $position")
 
 }
 
