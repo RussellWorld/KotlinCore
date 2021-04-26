@@ -4,9 +4,9 @@ fun main() {
     val dic = mapOf(
             1 to "one", 2 to "two"
     )
-    val values = dic.values
+    val keys = dic.keys
 
-    println(values)
-    //values is [one, two]
+    println(keys)
+    //values is [1, 2]
 }
 
