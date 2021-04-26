@@ -1,9 +1,8 @@
 package core
 
 fun main() {
-    val summer = Season.Summer.toString()
-    //val strValue = summer.toString()
-    println(summer)
+    val winter = Season.values()[2]
+    println(winter)
 }
 
 enum class Season {
