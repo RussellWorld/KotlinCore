@@ -1,9 +1,20 @@
 package core
 
+import java.util.*
+
 
 fun main() {
-    var intHashSet = setOf(2, 3, 5, 7, 11, 13, 17, 19)
+    val stringStack = Stack<String>()
+    stringStack.push("one")
+    stringStack.push("two")
 
-    println(intHashSet)
+    val employeeQueue = LinkedList<Employee>()
+    employeeQueue.add(Employee("Anton", "Pavlov"))
+
+    println(stringStack[0])
+    println(employeeQueue[0])
 }
+
+class Employee(var firstName: String, var LastName: String)
+
 
