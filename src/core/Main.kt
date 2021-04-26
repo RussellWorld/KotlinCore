@@ -1,15 +1,15 @@
 package core
 
 fun main() {
-    var sum10 = 0
-    for (i in 1..10) {
-        sum10 += i
-    }
-    // sum is 55
+    var i = 7
+    var f7 = 1
 
-    for (i in 10 downTo 1 step 2) {
-        print("$i ")
-    }
-    //prints: 10 8 6 4 2
+    do {
+        f7 *= i
+        i--
+    } while (i > 1)
+    //f7 is 5040
+
+    println(f7)
 }
 
