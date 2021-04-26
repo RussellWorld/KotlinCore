@@ -6,11 +6,14 @@ import java.time.format.DateTimeFormatter
 
 
 fun main() {
-    val stringDate = "1945-05-09 01:00"
+    val now = LocalDateTime.now()
 
-    val df = DateTimeFormatter.ofPattern(
-            "yyyy-MM-dd HH:mm"
-    )
-    val victoryDate = LocalDateTime.parse(stringDate, df)
+    var df = DateTimeFormatter.ofPattern("M/dd/YY h:mm a")
+    val shortStyle = now.format(df)
+    //shortStyle is "2/21/21 3:57 PM"
+
+    df = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+    val customStyle = df.format(now)
+    //customStyle is 2021-02-21
 }
 
