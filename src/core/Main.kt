@@ -2,24 +2,18 @@ package core
 
 
 fun main() {
-    val nokiaPhone = Phone()
-    nokiaPhone.model = "Nokia 6610"
+    val nokiaPhone = Phone("Nokia 6610")
 
-    val kim = Employee()
-    kim.firstName = "Victoriya"
-    kim.lastName = "Kim"
-    kim.personalPhone = nokiaPhone
+    val kim = Employee("Victoriya",
+    "Kim",
+    nokiaPhone)
 
+    println(nokiaPhone.model)
     println(kim.personalPhone.model)
 }
 
-class Phone {
-    var model = ""
-}
+class Phone(var model: String)
 
-class Employee {
-    var firstName = ""
-    var lastName = ""
-    lateinit var personalPhone: Phone
-
-}
+class Employee(var firstName: String,
+               var lastName: String,
+               var personalPhone: Phone)
