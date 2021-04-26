@@ -2,16 +2,18 @@ package core
 
 
 fun main() {
-    val str = " Spaces "
+    val first = "A"
+    val second = "B"
+    val third = "A"
 
-    val trimStarStr = str.trimStart()
-    //trimStartStr is "Spaces "
+    val areEqual1 = first == second
+    //areEqual1 is false
 
-    val trimEndStr = str.trimEnd()
-    //trimStartStr is " Spaces"
+    val areNotEqual = first != second
+    //areNotEqual is true
 
-    val trimStr = str.trim()
-    //trimStr is "Spaces"
+    val areEqual2 = first.compareTo(third) == 0
+    //areEqual2 is true
 
 }
 
