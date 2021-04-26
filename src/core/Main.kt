@@ -2,14 +2,8 @@ package core
 
 
 fun main() {
-    var dataString = "Substring removing!"
-
-    dataString = dataString.removeRange(9..17)
-    //dataString is "Substring!"
-
-    dataString = dataString.removePrefix("Sub")
-    //dataString is "String"
-
-
+    val str = "one way ticket"
+    val way = str.substring(4..7)
+    //way is "way"
 }
 
