@@ -3,23 +3,16 @@ package core
 import java.lang.Exception
 
 fun main() {
-   throwIfTrue(true)
-    //printed: "catch" and "finally"
-    throwIfTrue(false)
+    throw SimpleException()
+
+    throw RecommendExc("exception")
 
 }
 
-fun throwIfTrue(param: Boolean){
-    try {
-        if (param){
-            throw Exception("test exception")
-        }
-    }
-    catch (e: Exception){
-        println("catch")
-    }
-    finally {
-        println("finally")
-    }
-}
+class SimpleException : Exception() {}
 
+class RecommendExc : Exception {
+    //recommended constructors
+    constructor() : super()
+    constructor(message: String) : super(message)
+}
