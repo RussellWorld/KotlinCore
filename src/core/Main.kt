@@ -1,18 +1,17 @@
 package core
 
 fun main() {
-    val numbers = arrayOf(2, 3, 5, 7, 11, 13, 17)
+    val numbers = arrayOf(2, 3, 5, 7, 11, 13, 17, 19)
     var sum = 0
-    for (it in numbers) {     //numbers.forEach {sum += it}
-        sum += it
+    for (number in numbers) {
+        sum += number
     }
-    //sum is 58
+    //sum is 77
     println(sum)
 
-    var mult = 1
-    listOf(2, 3, 4, 5).forEach(fun(value: Int) { mult *= value })
-    //mult is 120
-    println(mult)
+    for ((i, number) in numbers.withIndex()) {
+        println("numbers[$i] is $number")
+    }
 
 }
 
