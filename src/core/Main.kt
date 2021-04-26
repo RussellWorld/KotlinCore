@@ -1,17 +1,15 @@
 package core
 
 fun main() {
-    val numbers = arrayOf(2, 3, 5, 7, 11, 13, 17, 19)
-    var sum = 0
-    for (number in numbers) {
-        sum += number
+    var sum10 = 0
+    for (i in 1..10) {
+        sum10 += i
     }
-    //sum is 77
-    println(sum)
+    // sum is 55
 
-    for ((i, number) in numbers.withIndex()) {
-        println("numbers[$i] is $number")
+    for (i in 10 downTo 1 step 2) {
+        print("$i ")
     }
-
+    //prints: 10 8 6 4 2
 }
 
