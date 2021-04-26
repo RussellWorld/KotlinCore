@@ -2,15 +2,17 @@ package core
 
 
 fun main() {
-    var dataString = StringBuilder("string")
+    val str = "ABC"
+    val charA = str[0]
 
-    dataString = dataString.insert(0, "Sub")
-    //dataString is "Substring"
+    val charB = str[1]
 
-    dataString = dataString.append("!")
-    //dataString is "Substring!"
+    val charC = str[2]
 
-    dataString = dataString.insert(9, " inserting")
-    //dataString is "Substring inserting!"
+    var charList = ""
+    for (c in str){
+        charList += c + "; "
+    }
+    println(charList)
 }
 
