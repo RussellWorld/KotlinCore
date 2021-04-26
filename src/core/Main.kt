@@ -2,13 +2,11 @@ package core
 
 fun main() {
     val dic = mapOf(
-            1 to "A", 2 to "B", 3 to "A"
+            1 to "one", 2 to "two"
     )
-    val value = "A"
+    val values = dic.values
 
-    val keys = dic.toList()
-            .filter { (_, v) -> v == value }
-            .toMap().keys
-    //keys is [1, 3]
+    println(values)
+    //values is [one, two]
 }
 
