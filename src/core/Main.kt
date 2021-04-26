@@ -1,17 +1,19 @@
 package core
 
-import java.time.LocalDate
-import java.time.LocalDateTime
+
+import java.util.*
 
 fun main() {
-    val now = LocalDate.now()
-    val time = LocalDateTime.now()
-    val year = now.year
-    val month = now.month
-    val day = now.dayOfMonth
-    val hour = time.hour
-    val minute = time.minute
-    val second = time.second
-    val dayOfWeek = now.dayOfWeek.value
+    val now = Date()
+    val cal = Calendar.getInstance()
+    cal.add(Calendar.DAY_OF_YEAR, -1)
+    val yesteday = cal.time
+
+    val areEqual = now == yesteday
+    //areEquale is False
+    val areLater = now.after(yesteday)
+    //areLater is True
+    val areEarlier = now.compareTo(yesteday) < 0
+    //areEarlier is False
 }
 
