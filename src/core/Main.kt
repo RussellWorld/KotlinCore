@@ -1,8 +1,9 @@
 package core
 
 fun main() {
-    val str = "true"
-    val boolValue = str.toBoolean()
-    println(boolValue)
+    val sunIsStar = true
+    val str = sunIsStar.toString()
+    println(str)
+    //str is "True"
 }
 
