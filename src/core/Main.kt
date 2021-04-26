@@ -1,17 +1,10 @@
 package core
 
 fun main() {
-    val dic = hashMapOf<Int, String>()
-    dic[1] = "one"
-    dic[2] = "two"
-    dic[3] = "three"
-    //dic is 1="one" 2="two" 3=three
+    val d1 = mapOf<Int, String>()
 
-    dic.remove(3)
-    //dic is 1=one, 2=two
-
-    dic.clear()
-    //dic is empty
-
+    val d2 = mapOf(
+            1 to "One", 2 to "two"
+    )
 }
 
