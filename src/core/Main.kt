@@ -1,20 +1,20 @@
 package core
 
 fun main() {
-
-    println(describe(42))
-
+    var str: String
+// val moniterInchSize = 24
+    when (24) {  //moniterInchSize
+        15 -> str = "too small"
+        in 16..18 ->
+            str = "good for the pas decade"
+        in 19..23 ->
+            str = "for office work"
+        in 24..27 ->
+            str = "great choice"
+        else ->
+            str = ""
+    }
+    println(str)
 }
 
-class Tiger {}
-
-fun describe(obj: Any): String =
-        when (obj) {
-            2 -> "two"
-            is Tiger -> "Tiger!"
-            "Error" -> "Error String"
-            is Int -> "Int type"
-            !is String -> "Not a string"
-            else -> "Unknown type"
-        }
 
