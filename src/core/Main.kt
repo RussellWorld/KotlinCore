@@ -1,15 +1,10 @@
 package core
 
 fun main() {
-    val sizeName = Size.Small.sizeName
-    println(sizeName)
+    val summer = Season.valueOf("Summer")
+    println(summer)
 }
 
-enum class Size{
-    Small("S"), Middle("M"), Large("L");
-
-    var sizeName = ""
-    constructor(name: String){
-        sizeName = name
-    }
+enum class Season {
+    Summer, Fall, Winter, Spring
 }
