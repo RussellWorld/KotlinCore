@@ -2,8 +2,9 @@ package core
 
 
 fun main() {
-    val count = 15
-    val arInt = Array(count, { 0 })
-    arInt[0] = 1
+    val numbers = arrayOf(1, 2, 3)
+    val length = numbers.size
+    //length is 3
+    println(length)
 }
 
