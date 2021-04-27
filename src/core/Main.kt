@@ -3,14 +3,16 @@ package core
 import java.util.*
 
 fun main() {
-    val chars = setOf('A', 'B', 'C', 'D')
-    var str = ""
+    val first = setOf(1, 2, 3)
+    val second = setOf(3, 4, 5)
 
-    for (c in chars) {
-        if (str != "")
-            str += "; "
-        str += c
-    }                       // A; B; C; D
-    println(str)
+    val result1 = first.union(second)
+    //{ 1, 2 , 3, 4, 5 }
+
+    val result2 = first.subtract(second)
+    //{ 1, 2 }
+
+    val result3 = first.intersect(second)
+    // { 3 }
 }
 
