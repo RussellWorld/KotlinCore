@@ -2,16 +2,14 @@ package core
 
 
 fun main() {
-    val numbers = arrayOf(2, 3, 4, 5, 6, 7, 8, 15, 18)
-    var str = ""
-    for ((i, _) in numbers.withIndex()) {
-        if (str.isNotEmpty()) {
-            str += "; "
-        }
-        str += numbers[i].toString()
-    }
-    // 2; 3; 4; 5; 6; 7; 8; 15; 18
-    println(str)
+    val firstNumbers = arrayOf(2, 3, 5)
+    val secondNumbers = arrayOf(7, 11, 13)
+    val allNumbers = firstNumbers + secondNumbers
+    val allNumbers1 = secondNumbers + firstNumbers
+    //allNumbers 2,3,5,7,11,13
+
+    println(allNumbers)
+    println(allNumbers1)
 }
 
 
