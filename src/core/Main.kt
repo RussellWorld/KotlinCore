@@ -3,16 +3,15 @@ package core
 import java.util.*
 
 fun main() {
-    val first = setOf(1, 2, 3)
-    val second = setOf(3, 4, 5)
+    val chars = setOf('A', 'B', 'C', 'D')
+    val containA = chars.contains('A')
+    //True
 
-    val result1 = first.union(second)
-    //{ 1, 2 , 3, 4, 5 }
+    val containE = chars.contains('E')
+    //False
 
-    val result2 = first.subtract(second)
-    //{ 1, 2 }
-
-    val result3 = first.intersect(second)
-    // { 3 }
+    val chars2 = setOf('A', 'B')
+    val containAll = chars.containsAll(chars2)
+    //True
 }
 
