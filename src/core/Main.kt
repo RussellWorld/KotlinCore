@@ -3,14 +3,7 @@ package core
 import java.util.*
 
 fun main() {
-    val set = mutableSetOf("A", "B", "C")
-    set.add("D")
-    //A, B, C, D
-
-    set.remove("A")
-    //B, C, D
-
-    set.clear()
-    //is empty []
+    val intSet = setOf<Int>(1, 2, 3)
+    val strSet = setOf("one", "two", "three")
 }
 
