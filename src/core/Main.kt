@@ -3,7 +3,14 @@ package core
 import java.util.*
 
 fun main() {
-    val intSet = setOf<Int>(1, 2, 3)
-    val strSet = setOf("one", "two", "three")
+    val chars = setOf('A', 'B', 'C', 'D')
+    var str = ""
+
+    for (c in chars) {
+        if (str != "")
+            str += "; "
+        str += c
+    }                       // A; B; C; D
+    println(str)
 }
 
