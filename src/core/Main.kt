@@ -2,19 +2,16 @@ package core
 
 
 fun main() {
-    val numbers = arrayOf(2, 3, 5, 7, 11, 13, 17)
-    var contain5 = numbers.contains(5)
-    //True
+    val n1 = arrayOf(1, 2, 3)
+    val n2 = arrayOf(1, 2, 3)
+    val n3 = arrayOf(3, 2, 1)
 
-    val index5 = numbers.indexOf(5)
-    //is 2
+    val equal = n1 contentEquals n2
+    //true
 
-    val contain10 = numbers.contains(10)
-    //is False
+    val equal2 = n1 contentEquals n3
+    //false
 
-    println(contain5)
-    println(index5)
-    println(contain10)
 
 }
 
