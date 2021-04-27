@@ -2,19 +2,37 @@ package core
 
 
 fun main() {
-    val value = 5
-    val count = 3
+    val numbers = arrayOf(1, 2, 3, 4, 5)
 
-    //first method
-    val array1 = Array(count) { value }
-    //array is {5, 5, 5 }
+    val allLess10 = every(numbers, { x -> x < 10 })
+    //True
 
-    //second method
-    val array2 = IntArray(count) { _ -> value }
-    //array is { 5, 5, 5}
+    val someMore3 = some(numbers, { x -> x > 3 })
+    //True
 
-    array1.forEach { print("${it} ") }
-    println()
-    array2.forEach { print("$it ") }
+    val allOdd = every(numbers, { x -> x % 2 == 1 })
+    //False
+
+    println(allLess10)
+    println(someMore3)
+    println(allOdd)
+
 }
+
+fun <T> every(arr: Array<T>, f: (i: T) -> Boolean): Boolean {
+    for (v in arr) {
+        if (!f(v)) return false
+    }
+    return true
+}
+
+fun <T> some(arr: Array<T>, f: (i: T) -> Boolean): Boolean {
+    for (v in arr) {
+        if (!f(v)) return true
+    }
+    return false
+}
+
+
+
 
