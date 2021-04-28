@@ -1,24 +1,31 @@
 package core
 
-import kotlin.math.pow
 
 fun main() {
-    val calc = Calc()
-    val value = calc.power(2.0, 8.0)
-    //value 256
-    println(value)
+
+    val rose = Flower("Rose")
+    val isPID = rose is IUID // <- Error
+    //Incompatible types IUID and Flower
+
+    var isNamed = rose is INamed
+    //isNamed is true
+
+    val pName = rose as INamed
+    val name = pName.getName()
+    //name is "Rose
+
 }
 
-interface ICalc {
-    fun addition(a: Int, b: Int): Int
+interface IUID {
+    fun getId(): Int
 }
 
-class Calc : ICalc {
-    override fun addition(a: Int, b: Int): Int {
-        return a + b
+interface INamed {
+    fun getName(): String
+}
+
+class Flower(private var name: String) : INamed {
+    override fun getName(): String {
+        return name
     }
-}
-
-fun ICalc.power(a: Double, b: Double): Double {
-    return a.pow(b)
 }
