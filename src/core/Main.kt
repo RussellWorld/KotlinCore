@@ -2,13 +2,18 @@ package core
 
 
 fun main() {
-    val printable = Printable() //<-- Error
+    val car = Airwave(1500, "Honda Airwave")
+    println(car.name)
 }
 
-interface Printable {
-    fun print()
+interface ICar {
+    val engineVolume: Int
+    val name: String
+
 }
 
+class Airwave(override var engineVolume: Int,
+        override val name: String) : ICar
 
 
 
