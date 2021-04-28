@@ -2,26 +2,23 @@ package core
 
 
 fun main() {
-    val tHtml = TextHtml()
-    val text = tHtml.asText()
-    //is "text"
+    val rows = arrayOf<INamed>(
+            Flower("Rose"),
+            City("Rome"),
+            Star("Sirius")
+    )
+    val list = rows.joinToString { it.name }
+    //list is "Rose, Rome, Sirius"
 
-    val html = tHtml.asHtml()
-
-    println(text)
-    println(html)
+    println(list)
 }
 
-interface IText {
-    fun asText(): String {
-        return "text"
-    }
+interface INamed {
+    val name: String
 }
 
-interface IHtml {
-    fun asHtml(): String {
-        return "<span>html</span>"
-    }
-}
+class Flower(override val name: String) : INamed
 
-class TextHtml : IText, IHtml {}
+class City(override val name: String) : INamed
+
+class Star(override val name: String) : INamed
