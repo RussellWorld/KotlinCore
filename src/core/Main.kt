@@ -1,26 +1,24 @@
 package core
 
+import kotlin.math.pow
+
 fun main() {
-
+    val calc = Calc()
+    val value = calc.power(2.0, 8.0)
+    //value 256
+    println(value)
 }
 
-interface ICar {
-    fun StartEngine(): Boolean
-    fun StopEngine()
+interface ICalc {
+    fun addition(a: Int, b: Int): Int
 }
 
-class SportCar : ICar {
-    private var started: Boolean = false
-    override fun StartEngine(): Boolean {
-        if (started)
-            return false
-        started = true
-        return true
+class Calc : ICalc {
+    override fun addition(a: Int, b: Int): Int {
+        return a + b
     }
-
-    override fun StopEngine() {
-        started = false
-    }
-
 }
 
+fun ICalc.power(a: Double, b: Double): Double {
+    return a.pow(b)
+}
