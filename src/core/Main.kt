@@ -2,30 +2,26 @@ package core
 
 
 fun main() {
-    val kamaz = Kamaz5320()
-    val vehicle = kamaz as IVehicle
-    val maxSpeed = vehicle.getMaxSpeed()
-    //maxSpeed is 85
+    val tHtml = TextHtml()
+    val text = tHtml.asText()
+    //is "text"
 
-    println(maxSpeed)
+    val html = tHtml.asHtml()
 
+    println(text)
+    println(html)
 }
 
-interface IVehicle {
-    fun getMaxSpeed(): Int
-}
-
-interface ITruck : IVehicle {
-    fun getCapacity(): Int
-}
-
-class Kamaz5320 : ITruck {
-    override fun getCapacity(): Int {
-        return 8000
+interface IText {
+    fun asText(): String {
+        return "text"
     }
-
-    override fun getMaxSpeed(): Int {
-        return 85
-    }
-
 }
+
+interface IHtml {
+    fun asHtml(): String {
+        return "<span>html</span>"
+    }
+}
+
+class TextHtml : IText, IHtml {}
