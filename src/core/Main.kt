@@ -2,20 +2,26 @@ package core
 
 
 fun main() {
-    val intList = mutableListOf<Int>()
-    intList.add(5)
+    val n1 = arrayOf(5)
+    val n2 = arrayOf(7)
+    swap(n1, n2)
+    //n1[0] is 7 and n2[0] is 5
 
-    //Dictionary
-    val dic = hashMapOf<Int, String>()
-    dic[1] = "one"  //dic.put(1, "one")
+    val s1 = arrayOf("cat")
+    val s2 = arrayOf("dog")
+    swap(s1, s2)
+    //s1[0] is dog / s2[0] is cat
 
-    //Set
-    val set = mutableSetOf<Double>()
-    set.add(3.14)
+    println("n1[0] is ${n1[0]} and n2[0] is ${n2[0]}")
+    println("s1[0] is ${s1[0]} and s2[0] is ${s2[0]}")
 
-    println(intList[0])
-    println(dic[1])
-    println(set.contains(3.14))
+
+}
+
+fun <T> swap(a: Array<T>, b: Array<T>) {
+    val tmp = a[0]
+    a[0] = b[0]
+    b[0] = tmp
 
 }
 
