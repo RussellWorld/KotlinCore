@@ -2,28 +2,33 @@ package core
 
 
 fun main() {
-    val list = mutableListOf<Vehicle>()
-    val vehicle = Vehicle()
-    val car = Car()
-    val truck = Truck()
-
-    list.add(vehicle)
-    list.add(car)
-    list.add(truck)
-
-    for (curVehicle in list) {
-        curVehicle.test()
-    }
-
+    val service = Service<IVehicle>()
+    service.add(Car())
+    service.test()
 }
 
-open class Vehicle {
+interface IVehicle {
+    fun test()
+}
+
+class Car : IVehicle {
+    override fun test() {
+
+    }
+}
+
+class Truck
+
+class Service<T : IVehicle> {
+    var list = mutableListOf<T>()
+
+    fun add(item: T) {
+        list.add(item)
+    }
+
     fun test() {
-
+        for (item in list) {
+            item.test()
+        }
     }
-
 }
-
-class Car : Vehicle()
-
-class Truck : Vehicle()
