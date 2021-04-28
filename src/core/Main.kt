@@ -2,20 +2,20 @@ package core
 
 
 fun main() {
-    val sizeInt = Size<Int>(5, 6)
-    val textInt = sizeInt.asText()
-    //textInt is "[5; 8]"
+    val intList = mutableListOf<Int>()
+    intList.add(5)
 
-    val sizeDouble = Size(3.7, 1.57)
-    val textDouble = sizeDouble.asText()
+    //Dictionary
+    val dic = hashMapOf<Int, String>()
+    dic[1] = "one"  //dic.put(1, "one")
 
+    //Set
+    val set = mutableSetOf<Double>()
+    set.add(3.14)
 
-    println(textInt)
-    println(textDouble)
+    println(intList[0])
+    println(dic[1])
+    println(set.contains(3.14))
+
 }
 
-class Size<T>(var width: T, var height: T) {
-    fun asText(): String {
-        return "[$width; $height]"
-    }
-}
