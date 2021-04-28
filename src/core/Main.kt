@@ -2,23 +2,20 @@ package core
 
 
 fun main() {
-    val rows = arrayOf<INamed>(
-            Flower("Rose"),
-            City("Rome"),
-            Star("Sirius")
-    )
-    val list = rows.joinToString { it.name }
-    //list is "Rose, Rome, Sirius"
+    val sizeInt = Size<Int>(5, 6)
+    val textInt = sizeInt.asText()
+    //textInt is "[5; 8]"
 
-    println(list)
+    val sizeDouble = Size(3.7, 1.57)
+    val textDouble = sizeDouble.asText()
+
+
+    println(textInt)
+    println(textDouble)
 }
 
-interface INamed {
-    val name: String
+class Size<T>(var width: T, var height: T) {
+    fun asText(): String {
+        return "[$width; $height]"
+    }
 }
-
-class Flower(override val name: String) : INamed
-
-class City(override val name: String) : INamed
-
-class Star(override val name: String) : INamed
