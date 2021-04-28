@@ -1,31 +1,26 @@
 package core
 
-import java.lang.Math.pow
-import kotlin.math.pow
-
-
 fun main() {
-    val power = PowerOfTwo()
-    val p8 = power[8]
-    //is 256
 
-    val p16 = power[16]
-    //is65636
-
-    println(p8)
-    println(p16)
 }
 
-interface IntIndex {
-    operator fun get(i: Int): Int
+interface ICar {
+    fun StartEngine(): Boolean
+    fun StopEngine()
 }
 
-class PowerOfTwo : IntIndex {
-    override fun get(i: Int): Int {
-        return 2.0.pow(i.toDouble()).toInt()
+class SportCar : ICar {
+    private var started: Boolean = false
+    override fun StartEngine(): Boolean {
+        if (started)
+            return false
+        started = true
+        return true
+    }
+
+    override fun StopEngine() {
+        started = false
     }
 
 }
-
-
 
