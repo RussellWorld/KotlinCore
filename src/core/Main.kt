@@ -2,24 +2,16 @@ package core
 
 
 fun main() {
-    val thread = AddThread()
-    thread.priority = Thread.MIN_PRIORITY
-    thread.start()
-    //wait until thread is terminated
-    thread.join()
-
-    println("main thread")
-    
+    val rows = arrayOf(2, 3, 5, 7, 11, 13, 17)
+    //run ShowNumber for each number in numbers
+    //using parallel computing
+    rows.asList()
+            .parallelStream()
+            .forEach { i -> showNumber(i) }
+    //prints random
 }
 
-class AddThread : Thread() {
-    private fun add(a: Int, b: Int): Int {
-        sleep(3_000)
-        return a + b
-    }
-
-    override fun run() {
-        val result = add(3, 5)
-        println("result: $result")
-    }
+fun showNumber(number: Int) {
+    Thread.sleep(500)
+    print("$number, ")
 }
