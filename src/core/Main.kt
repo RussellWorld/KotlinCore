@@ -1,22 +1,27 @@
 package core
 
-import java.util.concurrent.Executors
 
+//on Android apk
 
-fun main() {
-    val threahPool = Executors.newFixedThreadPool(10)
-
-    //start ten threads
-    for (i in 1..10) {
-        val action = Runnable {
-            showNumber(i)
-        }
-        threahPool.execute(action)
+class MainActivity : AppCompatActivity() {
+    fun onClick() {
+        CalcTask().execute
     }
-    threahPool.shutdown()
-}
 
-fun showNumber(number: Int) = synchronized(lock = Any()) {
-    Thread.sleep((2500..5500).random().toLong())
-    print("$number, ")
+    fun add(a: Int, b: Int): Int {
+        Thread.sleep(3000)
+        return a + b
+    }
+
+    private inner class CalcTask : AsyncTask<Unit, Unit, Int>() {
+        override fun doInBackground(vararg params: Unit): Int {
+            return add(3, 5)
+        }
+
+        override fun onPostExecute(result: Int?) {
+            //synchronization with the main thread
+            //for update user interface
+            mResultTextView.setText(result!!.toString())
+        }
+    }
 }
