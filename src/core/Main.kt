@@ -1,25 +1,18 @@
 package core
 
 import java.io.*
+import java.lang.Exception
 
 
 fun main() {
-
+    val dir = File("data")
+    val dirCopy = File("data_copy")
     try {
-        val fis = FileInputStream("file.out")
-        val ois = ObjectInputStream(fis)
-        val obj = ois.readObject()
-        ois.close()
-
-        if (obj is Array<*>) {
-            val numbers = obj as Array<Int>
-            numbers.forEach { print("$it ") }
-        }
-
-    } catch (e: IOException) {
+        dir.copyRecursively(dirCopy, true)
+        println("successfully copied")
+    } catch (e: Exception) {
         println(e.message)
     }
-
 }
 
 
