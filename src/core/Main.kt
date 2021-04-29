@@ -1,14 +1,26 @@
 package core
 
+import java.time.Year
 import kotlin.reflect.full.createInstance
 
 
-
 fun main() {
-    val carType = Car::class
-    val car = carType.createInstance()
+    val macType = MacBook::class
 
-    println(car is Car)
+    //show superTypes
+    for (member in macType.supertypes) {
+        println("TEST supertype: $member")
+    }
 }
 
-class Car()
+interface NoteBook {
+    fun description(): String
+
+}
+
+class MacBook(var model: String, var year: Int) : NoteBook {
+    override fun description(): String {
+        return "model: $model, year: $year"
+    }
+
+}
