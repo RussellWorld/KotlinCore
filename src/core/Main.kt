@@ -2,11 +2,11 @@ package core
 
 
 fun main() {
-    var data = "Pi = 3.14, exponent = 2.718"
-    val regex = """\d+\.\d+""".toRegex()
-    data = regex.replace(data, "<f>$0</f>")
+    val data = """AaaA\r\naaaA"""
+    val regex = "^(a+)".toRegex(
+            setOf(RegexOption.IGNORE_CASE, RegexOption.MULTILINE))
+    val value = regex.find(data, 0)!!.value
+    //value is "AaaA"
 
-    //data is "Pi = <f>3.14</f>, exponent = <f>2.718</f>"
-
-    println(data)
+    println(value)
 }
