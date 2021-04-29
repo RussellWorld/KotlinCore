@@ -5,11 +5,11 @@ fun main() {
     val thread = AddThread()
     thread.priority = Thread.MIN_PRIORITY
     thread.start()
-    println("main thread")
+    //wait until thread is terminated
+    thread.join()
 
-    //output:
-    //main thread
-    //result: 8
+    println("main thread")
+    
 }
 
 class AddThread : Thread() {
