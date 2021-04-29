@@ -1,15 +1,14 @@
 package core
 
 fun main() {
-    val numbers = arrayOf(2, 3, 1, 7, 9)
-    val numbers1 = numbers.map { i -> i * 2 + 1 }
-    //numbers is 5, 7 ,3 ,15, 19
+    val sumFunc = makeSum()
+    val sum = sumFunc(5, 8)
+    //sum is 13
 
-    val numbers2 = numbers.filter { it % 3 == 0 }
-    //3, 9
+    println(sum)
+}
 
-    numbers1.forEach { print("$it ") }
-    println()
-    numbers2.forEach { print("$it ") }
+fun makeSum(): (Int, Int) -> Int {
+    return { a, b -> a + b }
 }
 
