@@ -1,14 +1,20 @@
 package core
 
+import kotlin.math.pow
+
 fun main() {
-    val sumFunc = makeSum()
-    val sum = sumFunc(5, 8)
-    //sum is 13
+    //explicitly specify return type
+    val powOfTwo = { power: Int ->
+        2.0.pow(power.toDouble())
+    }
+    val powe8 = powOfTwo(8)
+    //pow is 256.0
 
-    println(sum)
-}
-
-fun makeSum(): (Int, Int) -> Int {
-    return { a, b -> a + b }
+    //implicitly specified return type
+    val powOfThree: (Double) -> Double = { power ->
+        3.0.pow(power)
+    }
+    val pow3 = powOfThree(3.0)
+    //pow3 is 27.0
 }
 
