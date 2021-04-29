@@ -2,27 +2,28 @@ package core
 
 
 fun main() {
-    val avg = { a: Int, b: Int -> (a + b) / 2 }
-    val n1 = avg(1, 3)
-    //n1 is 2
+    val payFromWallet1 = makeWallet(arrayOf(1000))
+    val payFromWallet2 = makeWallet(arrayOf(500))
+    var balance = payFromWallet1(50)
+    //balance is 950
+    println(balance)
 
-    //first universal method
-    val avg1 = Carry(avg)(1)
-    //avg1 is avg func with first param = 1
-    val n2 = avg1(3)
-    //n2 is 2 = (1 + 3)/2
+    balance = payFromWallet2(70)
+    //balance is 430
 
-    //second specialized method
-    val curriedAvg: (Int) -> (Int) -> Int = { a: Int ->
-        { b: Int -> (a * b) / 2 }
-    }
-    val avg3 = curriedAvg(3)
-    val n3 = avg3(3)
-    //n3 is 3 = (3 + 3)/2
+    println(balance)
+
+    balance = payFromWallet1(150)
+    //balance is 800
+
+    println(balance)
 }
 
-fun <A> Carry(f: (A, A) -> A): (A) -> (A) -> A {
-    return { a: A -> { b: A -> f(a, b) } }
+fun makeWallet(sum: Array<Int>): (Int) -> Int {
+    return { pay: Int ->
+        sum[0] -= pay
+        sum[0]
+    }
 }
 
 
