@@ -1,18 +1,20 @@
 package core
 
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.ObjectOutputStream
+import java.io.*
 
 
 fun main() {
-    val numbers = arrayOf(1, 2, 3)
+
     try {
-        val fos = FileOutputStream("file.out")
-        val out = ObjectOutputStream(fos)
-        out.writeObject(numbers)
-        out.close()
+        val fis = FileInputStream("file.out")
+        val ois = ObjectInputStream(fis)
+        val obj = ois.readObject()
+        ois.close()
+
+        if (obj is Array<*>) {
+            val numbers = obj as Array<Int>
+            numbers.forEach { print("$it ") }
+        }
 
     } catch (e: IOException) {
         println(e.message)
