@@ -2,12 +2,24 @@ package core
 
 
 fun main() {
-    val i = 5
-    val action = {
-        Thread.sleep(3_000)
-        println(i * 10)
-    }
-    //Run lambda at new thread
-    val thread = Thread(action)
+    val thread = AddThread()
+    thread.priority = Thread.MIN_PRIORITY
     thread.start()
+    println("main thread")
+
+    //output:
+    //main thread
+    //result: 8
+}
+
+class AddThread : Thread() {
+    private fun add(a: Int, b: Int): Int {
+        sleep(3_000)
+        return a + b
+    }
+
+    override fun run() {
+        val result = add(3, 5)
+        println("result: $result")
+    }
 }
