@@ -1,32 +1,39 @@
 package core
 
-import jdk.nashorn.internal.runtime.Context.getContext
 import java.io.*
-import java.nio.file.Paths
+import java.nio.file.Files
+import java.nio.file.attribute.BasicFileAttributes
 import java.util.*
 
 
 fun main() {
-    //on a desktop system
-    //get current file path (first method)
-    val path1 = System.getProperty("user.dir")
-    println("Working Directory = $path1")
+    val file = File("file.txt")
 
-    //get current file path (second method)
-    val path2 = Paths.get("").toAbsolutePath().toString()
-    println("Working Directory = $path2")
+    //file size
+    val fileSize = file.length()
 
-    //get document path
-    val fr = javax.swing.JFileChooser()
-    val fw = fr.fileSystemView
-    val documentsPath = fw.defaultDirectory.toString()
-    println(documentsPath)
+    //file modification date
+    val dateChanges = Date(file.lastModified())
 
-    //on android activity
-    val path = this.getAplicationInfo().dataDir
+    //file creation date
+    val attr = Files.readAttributes(
+            file.toPath(), BasicFileAttributes::class.java)
+    val creationDate = attr.creationTime()
 
-    //on android fragment
-    val path4 = getContext().getApplicationInfo().dataDir
+    //is readable file
+    val isReadable = file.canRead()
+
+    //is writable file
+    val isWritable = file.canWrite()
+
+    //id hidden file
+    val isHidden = file.isHidden
+
+    //file extension
+    val extension = file.extension
+
+    //file directory
+    val fileDir = file.absoluteFile.getParent()
 }
 
 
