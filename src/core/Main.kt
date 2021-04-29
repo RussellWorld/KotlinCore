@@ -11,12 +11,10 @@ fun main() {
     //SQL query execution
     val db = dbHelper.readableDatabase
     val cursor = db.rawQuery(
-            """SELECT Language, Percentage FROM countryLanguage WHERE CountryCode = 'RUS' ORDER BY Percentage DESC""", null)
+            """SELECT Language, Percentage FROM countryLanguage
+                | WHERE CountryCode = ? AND Percentage > ?""".trimMargin(), arrayOf("RUS","0,5"))
     )
 
-    //Get first row
-    cursor.moveToFirst()
-    println("${cursor.getString(0)} : ${cursor.getDouble(1)}")
 
     //Get All rows
     while (!cursor.isAfterLast()) {
