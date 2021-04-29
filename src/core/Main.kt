@@ -4,10 +4,10 @@ import java.io.*
 
 
 fun main() {
-    val path = System.getProperty("user.dir")
-
-    File(path).walk()
-            .filter { it.extension == "txt" }.forEach { println(it) }
+    val dir = File("data_copy")
+    if (dir.deleteRecursively()) {
+        println("successfully deleted")
+    }
 }
 
 
