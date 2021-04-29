@@ -1,26 +1,15 @@
 package core
 
-import java.time.Year
-import kotlin.reflect.full.createInstance
-
-
 fun main() {
-    val macType = MacBook::class
+    val numbers = arrayOf(2, 3, 1, 7, 9)
+    val numbers1 = numbers.map { i -> i * 2 + 1 }
+    //numbers is 5, 7 ,3 ,15, 19
 
-    //show superTypes
-    for (member in macType.supertypes) {
-        println("TEST supertype: $member")
-    }
+    val numbers2 = numbers.filter { it % 3 == 0 }
+    //3, 9
+
+    numbers1.forEach { print("$it ") }
+    println()
+    numbers2.forEach { print("$it ") }
 }
 
-interface NoteBook {
-    fun description(): String
-
-}
-
-class MacBook(var model: String, var year: Int) : NoteBook {
-    override fun description(): String {
-        return "model: $model, year: $year"
-    }
-
-}
