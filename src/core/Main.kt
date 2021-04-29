@@ -2,11 +2,10 @@ package core
 
 
 fun main() {
-    val data = """AaaA\r\naaaA"""
-    val regex = "^(a+)".toRegex(
-            setOf(RegexOption.IGNORE_CASE, RegexOption.MULTILINE))
-    val value = regex.find(data, 0)!!.value
-    //value is "AaaA"
+    val data = "Pi = 3.14, exponent = 2.718"
+    val regex = "\\d+\\.\\d+".toRegex()
+    val value = regex.findAll(data, 0)
+    //values is ["3.14", "2.718"]
 
-    println(value)
+    value.forEach { print("${it.value}") }
 }
