@@ -11,9 +11,21 @@ fun main() {
     //SQL query execution
     val db = dbHelper.readableDatabase
     val cursor = db.rawQuery(
-            "SELECT * FROM country", null)
+            """SELECT Language, Percentage FROM countryLanguage WHERE CountryCode = 'RUS' ORDER BY Percentage DESC""", null)
     )
 
+    //Get first row
+    cursor.moveToFirst()
+    println("${cursor.getString(0)} : ${cursor.getDouble(1)}")
+
+    //Get All rows
+    while (!cursor.isAfterLast()) {
+        println("${cursor.getString(0)} : ${cursor.getDouble(1)}")
+        cursor.moveToNext()
+    }
+
+    //Close the connection
+    cursor.close()
 }
 
 class DataBaseHelper(context: Context, dbName: String) :
