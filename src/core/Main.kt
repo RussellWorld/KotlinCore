@@ -1,33 +1,23 @@
 package core
 
+import kotlin.reflect.full.declaredFunctions
+import kotlin.reflect.full.declaredMemberProperties
+
 
 fun main() {
-    val carType = Car::class
+    val macType = MacBook::class
 
-    val isAbstract = carType.isAbstract
-    //isAbstract is False
+    //show Methods
+    for (member in macType.declaredFunctions) {
+        println("fun : ${member.name}")
+    }
 
-    val isCompanion = carType.isCompanion
-    //isCompanion is False
-
-    val isData = carType.isData
-    //isData is False
-
-    val isFinal = carType.isFinal
-    //is True
-
-    val isOpen = carType.isOpen
-    //is False
-
-    val isSealed = carType.isSealed
-    //is False
-
-    println("TEST isAbstract: $isAbstract")
-    println("TEST isCompanion: $isCompanion")
-    println("TEST isData: $isData")
-    println("TEST isFinal: $isFinal")
-    println("TEST isOpen: $isOpen")
-    println("TEST isSealed: $isSealed")
+    for (member in macType.declaredMemberProperties)
+        println("prop : ${member.name}")
 }
 
-class Car
+class MacBook(var model: String, var year: Int) {
+    fun description(): String {
+        return "model: $model, year: $year"
+    }
+}
