@@ -5,7 +5,7 @@ import java.io.*
 
 fun main() {
     val dir = File("data_copy")
-    if (dir.deleteRecursively()) {
+    if (dir.delete()) {
         println("successfully deleted")
     }
 }
