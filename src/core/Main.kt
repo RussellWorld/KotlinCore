@@ -1,39 +1,26 @@
 package core
 
+import kotlin.reflect.full.createInstance
+
 
 fun main() {
-    val vehicle = Vehicle()
-    val car = Car()
-    val truck = Truck()
+    val carType = Car::class
+    val car = carType.createInstance()
 
-    val service = Service<Vehicle>()
-    service.add(vehicle)
-    service.add(car)
-    service.test()
+    val method = car::increaseSpeed
+    method.invoke(10)
 
-    service.add(truck) //<- Error
+    val field = car::speed
+    val speed = field.get()
+    //speed is 10
+
+    println("Test speed = $speed")
 }
 
-open class Vehicle {
-    fun test() {
+class Car() {
+    var speed = 0
 
-    }
-}
-
-class Car : Vehicle()
-
-class Truck
-
-class Service<T : Vehicle> {
-    var list = mutableListOf<T>()
-
-    fun add(item: T) {
-        list.add(item)
-    }
-
-    fun test() {
-        for (item in list) {
-            item.test()
-        }
+    fun increaseSpeed(value: Int) {
+        speed += value
     }
 }
