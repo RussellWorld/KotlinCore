@@ -2,17 +2,14 @@ package core
 
 
 fun main() {
-    val process = { number: Int ->
-        print(number * 10)
+    val avgFunc = { a: Int, b: Int ->
+        (a + b) / 2
     }
-    checkAndProcess(5, process)
-    //printed: 50
+    val avg = avgFunc(3, 5)
+    //avg is 4
+
+    println(avg)
 }
 
-fun checkAndProcess(number: Int, process: (Int) -> Unit) {
-    if (number < 10) {
-        process(number)
-    }
-}
 
 
