@@ -2,11 +2,17 @@ package core
 
 
 fun main() {
-    val add2AndPrint = { a: Int -> print(a + 2) }
-    add2AndPrint(5)
-    // is 7
+    val process = { number: Int ->
+        print(number * 10)
+    }
+    checkAndProcess(5, process)
+    //printed: 50
 }
 
-
+fun checkAndProcess(number: Int, process: (Int) -> Unit) {
+    if (number < 10) {
+        process(number)
+    }
+}
 
 
