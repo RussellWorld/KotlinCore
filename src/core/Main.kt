@@ -1,23 +1,14 @@
 package core
 
-import kotlin.reflect.full.declaredFunctions
-import kotlin.reflect.full.declaredMemberProperties
+import kotlin.reflect.full.createInstance
+
 
 
 fun main() {
-    val macType = MacBook::class
+    val carType = Car::class
+    val car = carType.createInstance()
 
-    //show Methods
-    for (member in macType.declaredFunctions) {
-        println("fun : ${member.name}")
-    }
-
-    for (member in macType.declaredMemberProperties)
-        println("prop : ${member.name}")
+    println(car is Car)
 }
 
-class MacBook(var model: String, var year: Int) {
-    fun description(): String {
-        return "model: $model, year: $year"
-    }
-}
+class Car()
