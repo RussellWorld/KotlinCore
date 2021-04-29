@@ -1,22 +1,30 @@
 package core
 
-import kotlin.math.pow
-import kotlin.math.sqrt
 
 fun main() {
-    val getDistance = { p1: Point, p2: Point ->
-        val d1 = 2.0.pow(p1.x - p2.x)
-        val d2 = 2.0.pow(p1.y - p2.y)
-        sqrt(d1 + d2)
+    val avg = { a: Int, b: Int -> (a + b) / 2 }
+    val n1 = avg(1, 3)
+    //n1 is 2
+
+    //first universal method
+    val avg1 = Carry(avg)(1)
+    //avg1 is avg func with first param = 1
+    val n2 = avg1(3)
+    //n2 is 2 = (1 + 3)/2
+
+    //second specialized method
+    val curriedAvg: (Int) -> (Int) -> Int = { a: Int ->
+        { b: Int -> (a * b) / 2 }
     }
-    val point = Point(0.0, 0.0)
-    val point2 = Point(5.0, 5.0)
-    val distance = getDistance(point, point2)
-    //distance is 7.071
-    println(distance)
+    val avg3 = curriedAvg(3)
+    val n3 = avg3(3)
+    //n3 is 3 = (3 + 3)/2
 }
 
-class Point(var x: Double, var y: Double)
+fun <A> Carry(f: (A, A) -> A): (A) -> (A) -> A {
+    return { a: A -> { b: A -> f(a, b) } }
+}
+
 
 
 
