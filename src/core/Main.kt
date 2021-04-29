@@ -7,8 +7,7 @@ import java.io.IOException
 fun main() {
     try {
         val text = File("file1.txt")
-                .readText()
-        println(text)
+                .forEachLine { println(it) }
 
     } catch (e: IOException) {
         println(e.message)
