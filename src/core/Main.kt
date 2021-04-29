@@ -2,10 +2,12 @@ package core
 
 
 fun main() {
-    val data = "Pi = 3.14, exponent = 2.718"
+    val data = "Pi is equal to 3.14"
     val regex = "\\d+\\.\\d+".toRegex()
-    val value = regex.findAll(data, 0)
-    //values is ["3.14", "2.718"]
-
-    value.forEach { print("${it.value}") }
+    val match = regex.find(data, 0)
+    if (match != null) {
+        var pi = match.value.toDouble()
+        //pi is 3.14
+        println(pi)
+    }
 }
