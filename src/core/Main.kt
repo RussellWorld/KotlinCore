@@ -14,14 +14,6 @@ fun main() {
             "SELECT * FROM country", null)
     )
 
-    //Get the data
-    cursor.moveToFirst()
-    val countryName = cursor.getString(0)
-
-    println(countryName)
-
-    //Close the connection
-    cursor.close()
 }
 
 class DataBaseHelper(context: Context, dbName: String) :
