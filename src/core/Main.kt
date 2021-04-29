@@ -1,26 +1,28 @@
 package core
 
-import kotlin.reflect.full.createInstance
+import kotlin.reflect.KFunction
 
 
 fun main() {
-    val carType = Car::class
-    val car = carType.createInstance()
+    val macType = MacBook::class
 
-    val method = car::increaseSpeed
-    method.invoke(10)
+    //show constructors
+    for (c in macType.constructors) {
+        var info = c.name + "(" +
+                getParameters(c) + ")"
+        println(info)
+    }
+    //prints: <init>(model: kotlin.String, year: kotlin.Int)
 
-    val field = car::speed
-    val speed = field.get()
-    //speed is 10
-
-    println("Test speed = $speed")
 }
 
-class Car() {
-    var speed = 0
+class MacBook()
 
-    fun increaseSpeed(value: Int) {
-        speed += value
+fun <T> getParameters(c: KFunction<T>): String {
+    var s = ""
+    for (param in c.parameters) {
+        if (s.isNotEmpty()) s += ", "
+        s += param.name + ": " + param.type.toString()
     }
+    return s
 }
