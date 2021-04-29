@@ -4,9 +4,10 @@ import java.io.*
 
 
 fun main() {
-    val file = File("file.txt")
-    val exists = file.exists()
-    println(exists)
+    val path = System.getProperty("user.dir")
+
+    File(path).walk()
+            .filter { it.extension == "txt" }.forEach { println(it) }
 }
 
 
