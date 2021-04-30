@@ -1,83 +1,68 @@
 package core
 
 fun main() {
-    testFactory(Factory1())
-    //printed: test A1 and test B1
-    testFactory(Factory2())
-    //printed: test A2 and test B2
+    //Client
+    val textMaker = TextMaker()
+
+    val textBuilder = TextBuilder()
+    textMaker.makeText(textBuilder)
+    val text = textBuilder.getText()
+    //text: Line1 Line2
+
+    val htmlBuilder = HtmlBuilder()
+    textMaker.makeText(htmlBuilder)
+    val html = htmlBuilder.getHtml()
+    //html: <span> line 1</span><br/> <span> line 2 </span>
+
+    println(text)
+    println(html)
 }
 
-//client code
-fun testFactory(factory: IFactory) {
-    val productA = factory.createA()
-    val productB = factory.createB()
-    productA.testA()
-    productB.testB()
+//AbstractBuilder
+interface ITextBuilder {
+    fun addText(value: String)
+    fun addNewLine(value: String)
 }
 
-//concrete product A1
-class ProductA1 : IProductA {
-    override fun testA() {
-        println("test A1")
+//ConcreteBuilder 1
+class TextBuilder : ITextBuilder {
+    private var text = ""
+
+    override fun addText(value: String) {
+        text += value
+    }
+
+    override fun addNewLine(value: String) {
+        text += "\n" + value
+    }
+
+    fun getText(): String {
+        return text
     }
 }
 
-//concrete product A2
-class ProductA2 : IProductA {
-    override fun testA() {
-        println("test A2")
+//ConcreteBuilder 2
+class HtmlBuilder : ITextBuilder {
+    private var html = ""
+    override fun addText(value: String) {
+        html += "<span>$value</span>"
+    }
+
+    override fun addNewLine(value: String) {
+        html += "br/>\n"
+        addText(value)
+    }
+
+    fun getHtml(): String {
+        return html
     }
 }
 
-//concrete product B1
-class ProductB1 : IProductB {
-    override fun testB() {
-        println("test B1")
+//Director
+class TextMaker {
+    fun makeText(textBuilder: ITextBuilder) {
+        textBuilder.addText("Line 1")
+        textBuilder.addNewLine("Line 1")
     }
 }
 
-//concrete product B2
-class ProductB2 : IProductB {
-    override fun testB() {
-        println("test B2")
-    }
-}
-
-//concrete factory 1
-class Factory1 : IFactory {
-    override fun createA(): IProductA {
-        return ProductA1()
-    }
-
-    override fun createB(): IProductB {
-        return ProductB1()
-    }
-}
-
-//concrete factory 2
-class Factory2 : IFactory {
-    override fun createA(): IProductA {
-        return ProductA2()
-    }
-
-    override fun createB(): IProductB {
-        return ProductB2()
-    }
-}
-
-//abstract factory
-interface IFactory {
-    fun createA(): IProductA
-    fun createB(): IProductB
-}
-
-
-//abstact product B
-interface IProductB {
-    fun testB()
-}
-
-//Abstract product A
-interface IProductA {
-    fun testA()
-}
