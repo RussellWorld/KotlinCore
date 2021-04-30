@@ -1,37 +1,47 @@
 package core
 
 fun main() {
-    val kettle = Kettle()
-    val toaster = Toaster()
-    val refrigetator = Refrigetator()
-    val kitchen = Kitchen(kettle, toaster, refrigetator)
-    kitchen.off()
+    //Client
+    val factory = CharFactory()
+    val charA = factory.getChar('A')
+    charA.printSpan("font-size: 12")
+
+    val charB = factory.getChar('B')
+    charB.printSpan("font-size: 12")
+
+    val charA1 = factory.getChar('A')
+    charA1.printSpan("font-size: 12")
+
+    val equal = charA == charA1
+    //equal is True
+
+    println(equal)
 }
 
-//Complex parts
-class Kettle {
-    fun turnOff() {
-        println("Kettle turn off")
+//Flyweight
+interface ISpan {
+    fun printSpan(style: String)
+}
+
+//ConcreteFlyweight
+class FChar(protected var c: Char) : ISpan {
+    override fun printSpan(style: String) {
+        //Operation(extrinsicState)
+        println("<span style=\"$style\" $c</span>")
     }
 }
 
-class Toaster {
-    fun turnOff() {
-        println("Toaster turn off")
-    }
-}
+//FlyweightFactory
+class CharFactory {
+    var chars = hashMapOf<Char, FChar>()
 
-class Refrigetator {
-    fun turnOff() {
-        println("Refrigetator turn off")
-    }
-}
-
-//Facade
-class Kitchen(var kettle: Kettle, var toaster: Toaster, var refrigetator: Refrigetator) {
-    fun off() {
-        kettle.turnOff()
-        toaster.turnOff()
-        refrigetator.turnOff()
+    //GetFlyweight(key)
+    fun getChar(c: Char): ISpan {
+        var character = chars[c]
+        if (character == null) {
+            character = FChar(c)
+            chars[c] = character
+        }
+        return character
     }
 }
