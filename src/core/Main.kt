@@ -2,46 +2,65 @@ package core
 
 fun main() {
     //Client
-    val factory = CharFactory()
-    val charA = factory.getChar('A')
-    charA.printSpan("font-size: 12")
+    val textMaker = FillTextBuilder(TextBuilder())
+    val text = textMaker.getText()
+    //test: Line 1 and Line 2
 
-    val charB = factory.getChar('B')
-    charB.printSpan("font-size: 12")
+    val htmlMaker = FillTextBuilder(HtmlBuilder())
+    val html = htmlMaker.getText()
 
-    val charA1 = factory.getChar('A')
-    charA1.printSpan("font-size: 12")
-
-    val equal = charA == charA1
-    //equal is True
-
-    println(equal)
+    println(text)
+    println(html)
 }
 
-//Flyweight
-interface ISpan {
-    fun printSpan(style: String)
+//Abstraction
+interface IText {
+    //Operations
+    fun getText(): String
+    fun addLine(value: String)
 }
 
-//ConcreteFlyweight
-class FChar(protected var c: Char) : ISpan {
-    override fun printSpan(style: String) {
-        //Operation(extrinsicState)
-        println("<span style=\"$style\" $c</span>")
+
+//Implementator
+abstract class TextImp {
+    var rows = mutableListOf<String>()
+
+    fun getString(): String {
+        return rows.joinToString ("\n" )
+    }
+
+    abstract fun appendLine(value: String)
+}
+
+//RefinedAbstractions
+class TextMaker(var textImp: TextImp) : IText {
+    override fun getText(): String {
+        return textImp.getString()
+    }
+
+    override fun addLine(value: String) {
+        textImp.appendLine(value)
     }
 }
 
-//FlyweightFactory
-class CharFactory {
-    var chars = hashMapOf<Char, FChar>()
 
-    //GetFlyweight(key)
-    fun getChar(c: Char): ISpan {
-        var character = chars[c]
-        if (character == null) {
-            character = FChar(c)
-            chars[c] = character
-        }
-        return character
+//ConcreteImplementator
+class TextBuilder : TextImp() {
+    override fun appendLine(value: String) {
+        rows.add(value)
     }
+}
+
+//ConcreteImplementator
+class HtmlBuilder : TextImp() {
+    override fun appendLine(value: String) {
+        rows.add("<span>$value<\\span><br\\>")
+    }
+}
+
+fun FillTextBuilder(textImp: TextImp): TextMaker {
+    val textMaker = TextMaker(textImp)
+    textMaker.addLine("line 1")
+    textMaker.addLine("line 2")
+    return textMaker
 }
