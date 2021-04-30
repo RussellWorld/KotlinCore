@@ -2,31 +2,30 @@ package core
 
 fun main() {
 
-    val square = Square()
-    val maker = ShapeMaker(square)
+    //Client
+    val settings = Settings.getInstance()
+    // val settings = Settings()  //<- Error
 
-    val square1 = maker.makeShape()
-    val square2 = maker.makeShape() as Square
+    settings.host = "192.168.100.1"
+    settings.port = 33
 
-    println(square1)
-    println(square2.lineCount)
+    val settings1 = Settings.getInstance()
 }
 
-//Prototype
-interface Shape {
-    fun clone(): Shape
-}
+    //Singleton
+class Settings private constructor() {
+    companion object {
+        private var instance: Settings? = null
 
-//ConcretePrototype
-class Square(var lineCount: Int = 4) : Shape {
-    override fun clone(): Shape {
-        return Square(lineCount)
+        fun getInstance(): Settings {
+            if (instance == null) {
+                instance = Settings()
+            }
+            return instance!!
+        }
     }
+
+    var port = 0
+    var host = ""
 }
 
-//Client
-class ShapeMaker(var shape: Shape) {
-    fun makeShape(): Shape {
-        return shape.clone()
-    }
-}
