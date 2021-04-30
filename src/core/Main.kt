@@ -1,31 +1,37 @@
 package core
 
 fun main() {
-
-    //Client
-    val settings = Settings.getInstance()
-    // val settings = Settings()  //<- Error
-
-    settings.host = "192.168.100.1"
-    settings.port = 33
-
-    val settings1 = Settings.getInstance()
+    val kettle = Kettle()
+    val toaster = Toaster()
+    val refrigetator = Refrigetator()
+    val kitchen = Kitchen(kettle, toaster, refrigetator)
+    kitchen.off()
 }
 
-    //Singleton
-class Settings private constructor() {
-    companion object {
-        private var instance: Settings? = null
-
-        fun getInstance(): Settings {
-            if (instance == null) {
-                instance = Settings()
-            }
-            return instance!!
-        }
+//Complex parts
+class Kettle {
+    fun turnOff() {
+        println("Kettle turn off")
     }
-
-    var port = 0
-    var host = ""
 }
 
+class Toaster {
+    fun turnOff() {
+        println("Toaster turn off")
+    }
+}
+
+class Refrigetator {
+    fun turnOff() {
+        println("Refrigetator turn off")
+    }
+}
+
+//Facade
+class Kitchen(var kettle: Kettle, var toaster: Toaster, var refrigetator: Refrigetator) {
+    fun off() {
+        kettle.turnOff()
+        toaster.turnOff()
+        refrigetator.turnOff()
+    }
+}
