@@ -2,40 +2,54 @@ package core
 
 fun main() {
 //Client
-    val proxy = ImageProxy("1.png")
-    //operation without creating a RealSubject
-    val fileName = proxy.getGFileName()
-    //forwarded
-    proxy.draw()
+    val square = Square()
+    square.showInfo()
+    //square
+    println()
+
+    val colorShape = ColorShape(square, "red")
+    colorShape.showInfo()
+    //red square
+    println()
+
+    val shadowShape = ShadowShape(colorShape)
+    shadowShape.showInfo()
+    //red square with shadow
 }
 
-//Subject
-abstract class Graphic(protected var fileName: String) {
-    abstract fun draw()
+//Component
+interface IShape {
+    //Operation
+    fun showInfo()
+}
 
-    fun getGFileName(): String {
-        return fileName
+//ConcreteComponent
+class Square : IShape {
+    override fun showInfo() {
+        print("square")
     }
 }
 
-//RealSubject
-class Image(fileName: String) : Graphic(fileName) {
-    override fun draw() {
-        println("draw $fileName")
+//Decorator
+abstract class ShapeDecorator(protected var shape: IShape) : IShape {
+    override fun showInfo() {
+        shape.showInfo()
     }
 }
 
-//Proxy
-class ImageProxy(fileName: String) : Graphic(fileName) {
-    private var image: Image? = null
-    private fun getImage(): Image {
-        if (image == null) {
-            image = Image(fileName)
-        }
-        return image!!
+//ConcreteDecorator
+class ColorShape(shape: IShape, var color: String) : ShapeDecorator(shape) {
+    override fun showInfo() {
+        print("$color ")
+        shape.showInfo()
+    }
+}
+
+//ConcreteDecorator
+class ShadowShape(shape: IShape) : ShapeDecorator(shape) {
+    override fun showInfo() {
+        shape.showInfo()
+        print(" with shadow")
     }
 
-    override fun draw() {
-        getImage().draw()
-    }
 }
