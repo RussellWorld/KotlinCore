@@ -2,49 +2,40 @@ package core
 
 fun main() {
 //Client
-    val image = Image()
-    image.add(Circle())
-    image.add(Square())
-    val picture = Image()
-    picture.add(image)
-    picture.add(Image())
-    picture.draw()
+    val proxy = ImageProxy("1.png")
+    //operation without creating a RealSubject
+    val fileName = proxy.getGFileName()
+    //forwarded
+    proxy.draw()
 }
 
-//Component
-interface Graphic {
-    fun draw()
+//Subject
+abstract class Graphic(protected var fileName: String) {
+    abstract fun draw()
+
+    fun getGFileName(): String {
+        return fileName
+    }
 }
 
-//Leaf
-class Circle : Graphic {
+//RealSubject
+class Image(fileName: String) : Graphic(fileName) {
     override fun draw() {
-        println("Draw circle")
+        println("draw $fileName")
     }
 }
 
-//Leaf
-class Square : Graphic {
-    override fun draw() {
-        println("Draw square")
-    }
-}
-
-//Composite
-class Image : Graphic {
-    val graphics = mutableListOf<Graphic>()
-
-    fun add(graphic: Graphic) {
-        graphics.add(graphic)
-    }
-
-    fun remove(graphic: Graphic): Boolean {
-        return graphics.remove(graphic)
+//Proxy
+class ImageProxy(fileName: String) : Graphic(fileName) {
+    private var image: Image? = null
+    private fun getImage(): Image {
+        if (image == null) {
+            image = Image(fileName)
+        }
+        return image!!
     }
 
     override fun draw() {
-        for (graphic in graphics)
-            graphic.draw()
+        getImage().draw()
     }
 }
-
