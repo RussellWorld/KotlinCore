@@ -1,66 +1,50 @@
 package core
 
 fun main() {
-    //Client
-    val textMaker = FillTextBuilder(TextBuilder())
-    val text = textMaker.getText()
-    //test: Line 1 and Line 2
-
-    val htmlMaker = FillTextBuilder(HtmlBuilder())
-    val html = htmlMaker.getText()
-
-    println(text)
-    println(html)
+//Client
+    val image = Image()
+    image.add(Circle())
+    image.add(Square())
+    val picture = Image()
+    picture.add(image)
+    picture.add(Image())
+    picture.draw()
 }
 
-//Abstraction
-interface IText {
-    //Operations
-    fun getText(): String
-    fun addLine(value: String)
+//Component
+interface Graphic {
+    fun draw()
 }
 
-
-//Implementator
-abstract class TextImp {
-    var rows = mutableListOf<String>()
-
-    fun getString(): String {
-        return rows.joinToString ("\n" )
-    }
-
-    abstract fun appendLine(value: String)
-}
-
-//RefinedAbstractions
-class TextMaker(var textImp: TextImp) : IText {
-    override fun getText(): String {
-        return textImp.getString()
-    }
-
-    override fun addLine(value: String) {
-        textImp.appendLine(value)
+//Leaf
+class Circle : Graphic {
+    override fun draw() {
+        println("Draw circle")
     }
 }
 
-
-//ConcreteImplementator
-class TextBuilder : TextImp() {
-    override fun appendLine(value: String) {
-        rows.add(value)
+//Leaf
+class Square : Graphic {
+    override fun draw() {
+        println("Draw square")
     }
 }
 
-//ConcreteImplementator
-class HtmlBuilder : TextImp() {
-    override fun appendLine(value: String) {
-        rows.add("<span>$value<\\span><br\\>")
+//Composite
+class Image : Graphic {
+    val graphics = mutableListOf<Graphic>()
+
+    fun add(graphic: Graphic) {
+        graphics.add(graphic)
+    }
+
+    fun remove(graphic: Graphic): Boolean {
+        return graphics.remove(graphic)
+    }
+
+    override fun draw() {
+        for (graphic in graphics)
+            graphic.draw()
     }
 }
 
-fun FillTextBuilder(textImp: TextImp): TextMaker {
-    val textMaker = TextMaker(textImp)
-    textMaker.addLine("line 1")
-    textMaker.addLine("line 2")
-    return textMaker
-}
