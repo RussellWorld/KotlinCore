@@ -31,15 +31,23 @@ open class StringList {
 }
 
 //Adapter
-class TextAdapter : StringList(), IText {
+class TextAdapter : IText {
+    var rowList: StringList? = null
+
     override fun getText(): String {
-        return getString()
+        if (rowList == null) {
+            return ""
+        }
+        return rowList!!.getString()
     }
 }
 
 fun getTextAdapter(): TextAdapter {
+
     val adapter = TextAdapter()
-    adapter.add("line 1")
-    adapter.add("line 2")
+    val rowList = StringList()
+    rowList.add("line 1")
+    rowList.add("line 2")
+    adapter.rowList = rowList
     return adapter
 }
