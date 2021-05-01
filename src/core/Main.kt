@@ -3,53 +3,58 @@ package core
 
 fun main() {
     //Client
-    val bank = Bank()
-    val cPut = PutCommand(bank)
-    val cGet = GetCommand(bank)
-    val client = BankClient(cPut, cGet)
-    client.getMoney()
-    //money to the client
-    client.putMoney()
-    //money from the client
-}
-
-interface Command {
-    fun execute()
-}
-
-//Invoker
-class BankClient(private val putCommand: Command, private val getCommand: Command) {
-    fun putMoney() {
-        putCommand.execute()
+    val numbers = PrimeNumbers()
+    val iterator = numbers.getIterator()
+    var sum = 0
+    iterator.first()
+    while (!iterator.isDone()) {
+        sum += iterator.currentItem()
+        iterator.next()
     }
 
-    fun getMoney() {
-        getCommand.execute()
-    }
+    //sum is 28
+    println(sum)
 }
 
-//Receiver
-class Bank {
-    fun giveMoney() {
-        println("money to the client")
-    }
-
-    fun receiveMoney() {
-        println("money from the client")
-    }
+//Iterator
+interface IntIterator {
+    fun first()
+    fun next()
+    fun isDone(): Boolean
+    fun currentItem(): Int
 }
 
-//ConcreteCommand
-class PutCommand(private val bank: Bank) : Command {
-    override fun execute() {
-        bank.receiveMoney()
-    }
+//Aggregate
+interface IntAggregate {
+    fun getIterator(): IntIterator
 }
 
-//ConcreteCommand
-class GetCommand(private val bank: Bank) : Command {
-    override fun execute() {
-        bank.giveMoney()
+//ConcreteAggregate
+class PrimeNumbers : IntAggregate {
+    private val numbers = arrayOf(2, 3, 5, 7, 11)
+    override fun getIterator(): IntIterator {
+        return Iterator()
+    }
+
+    //ConcreteIterator
+    inner class Iterator : IntIterator {
+        private var index = 0
+        override fun first() {
+            index = 0
+        }
+
+        override fun next() {
+            index++
+        }
+
+        override fun isDone(): Boolean {
+            return index >= numbers.size
+        }
+
+        override fun currentItem(): Int {
+            return numbers[index]
+        }
+
     }
 
 }
