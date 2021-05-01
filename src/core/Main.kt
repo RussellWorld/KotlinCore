@@ -1,55 +1,45 @@
 package core
 
+
 fun main() {
-//Client
-    val square = Square()
-    square.showInfo()
-    //square
-    println()
+    //Client
+    val adapter = getTextAdapter()
+    val text = adapter.getText()
+    //text: line 1 and line 2
 
-    val colorShape = ColorShape(square, "red")
-    colorShape.showInfo()
-    //red square
-    println()
-
-    val shadowShape = ShadowShape(colorShape)
-    shadowShape.showInfo()
-    //red square with shadow
+    println(text)
 }
 
-//Component
-interface IShape {
-    //Operation
-    fun showInfo()
+//Target
+interface IText {
+    //Request()
+    fun getText(): String
 }
 
-//ConcreteComponent
-class Square : IShape {
-    override fun showInfo() {
-        print("square")
+//Adaptee
+open class StringList {
+    private val rows = mutableListOf<String>()
+
+    //SpecificRequest()
+    fun getString(): String {
+        return rows.joinToString("\n")
+    }
+
+    fun add(value: String) {
+        rows.add(value)
     }
 }
 
-//Decorator
-abstract class ShapeDecorator(protected var shape: IShape) : IShape {
-    override fun showInfo() {
-        shape.showInfo()
+//Adapter
+class TextAdapter : StringList(), IText {
+    override fun getText(): String {
+        return getString()
     }
 }
 
-//ConcreteDecorator
-class ColorShape(shape: IShape, var color: String) : ShapeDecorator(shape) {
-    override fun showInfo() {
-        print("$color ")
-        shape.showInfo()
-    }
-}
-
-//ConcreteDecorator
-class ShadowShape(shape: IShape) : ShapeDecorator(shape) {
-    override fun showInfo() {
-        shape.showInfo()
-        print(" with shadow")
-    }
-
+fun getTextAdapter(): TextAdapter {
+    val adapter = TextAdapter()
+    adapter.add("line 1")
+    adapter.add("line 2")
+    return adapter
 }
