@@ -3,58 +3,66 @@ package core
 
 fun main() {
     //Client
-    val numbers = PrimeNumbers()
-    val iterator = numbers.getIterator()
-    var sum = 0
-    iterator.first()
-    while (!iterator.isDone()) {
-        sum += iterator.currentItem()
-        iterator.next()
-    }
+    val mediator = SyncMediator()
+    val switcher1 = Switcher(mediator)
+    val switcher2 = Switcher(mediator)
+    val switcher3 = Switcher(mediator)
 
-    //sum is 28
-    println(sum)
+    switcher1.setState(true)
+    var state2 = switcher2.getState()
+    //state2 is false
+    var state3 = switcher3.getState()
+    //state is false
+
+    switcher1.sync()
+    state2 = switcher2.getState()
+    //state2 is true
+    state3 = switcher3.getState()
+    //state 3 is true
+
+    println(state2)
+    println(state3)
 }
 
-//Iterator
-interface IntIterator {
-    fun first()
-    fun next()
-    fun isDone(): Boolean
-    fun currentItem(): Int
-}
+//Colleague
+class Switcher {
+    private var state = false
+    private var mediator: Mediator
 
-//Aggregate
-interface IntAggregate {
-    fun getIterator(): IntIterator
-}
-
-//ConcreteAggregate
-class PrimeNumbers : IntAggregate {
-    private val numbers = arrayOf(2, 3, 5, 7, 11)
-    override fun getIterator(): IntIterator {
-        return Iterator()
+    constructor(mediator: Mediator) {
+        this.mediator = mediator
+        mediator.add(this)
     }
 
-    //ConcreteIterator
-    inner class Iterator : IntIterator {
-        private var index = 0
-        override fun first() {
-            index = 0
-        }
-
-        override fun next() {
-            index++
-        }
-
-        override fun isDone(): Boolean {
-            return index >= numbers.size
-        }
-
-        override fun currentItem(): Int {
-            return numbers[index]
-        }
-
+    fun sync() {
+        mediator.sync(this)
     }
 
+    fun getState(): Boolean {
+        return state
+    }
+
+    fun setState(value: Boolean) {
+        state = value
+    }
+}
+
+abstract class Mediator {
+    protected val switchers = mutableListOf<Switcher>()
+
+    abstract fun sync(switcher: Switcher)
+
+    fun add(switcher: Switcher) {
+        switchers.add(switcher)
+    }
+}
+
+//ConcreteMediator
+class SyncMediator : Mediator() {
+    override fun sync(switcher: Switcher) {
+        val state = switcher.getState()
+        for (curSwitcher in switchers) {
+            curSwitcher.setState(state)
+        }
+    }
 }
