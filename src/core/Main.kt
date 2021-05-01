@@ -1,63 +1,66 @@
 package core
 
+import java.util.*
+
 
 fun main() {
 //Client
-    val ambulance = Ambulance(null)
-    val police = Police(ambulance)
-    val firefighter = Firefighter(police)
-    firefighter.help(1)
-    // call firefughters
-    firefighter.help(2)
-    //call police
-    firefighter.help(3)
-    //call ambulance
+    val shape = Shape()
+    val helper = ShapeHelper(shape)
+
+    helper.move(2, 3)
+    //shape.position is (2,3)
+    helper.move(-3, 7)
+    //shape.position -3, 7
+
+    println("${shape.position.x}, ${shape.position.y}")
+    helper.undo()
+    //shape.position is 2, 3
+    helper.undo()
+    //shape.position is 0, 0
 }
 
-//Handler
-abstract class Rescuer(protected val next: Rescuer?) {
-    protected var code: Int = 0
+//State
+class Point(var x: Int, var y: Int)
 
-    //HandleRequest()
-    fun help(code: Int) {
-        if (this.code == code) {
-            toHelp()
-        } else next?.help(code)
-    }
-
-    abstract fun toHelp()
-}
-
-//ConcreteHandler
-class Firefighter(next: Rescuer?) : Rescuer(next) {
-    init {
-        this.code = 1
-    }
-
-    override fun toHelp() {
-        println("call firefighters")
+class Memento(private val state: Point) {
+    fun getState(): Point {
+        return state
     }
 }
 
-//ConcreteHandler
-class Police(next: Rescuer?) : Rescuer(next) {
-    init {
-        this.code = 2
+//Originator
+class Shape {
+    var position = Point(0, 0)
+
+    fun move(left: Int, top: Int) {
+        position.x += left
+        position.y += top
     }
 
-    override fun toHelp() {
-        println("call the police")
+    fun getMemento(): Memento {
+        val state = Point(
+                position.x, position.y)
+        return Memento(state)
+    }
+
+    fun setMemento(memento: Memento) {
+        position = memento.getState()
     }
 }
 
-//ConcreteHandler
-class Ambulance(next: Rescuer?) : Rescuer(next) {
+//Caretaker
+class ShapeHelper(private val shape: Shape) {
+    private val stack = Stack<Memento>()
 
-    init {
-        this.code = 3
+    fun move(left: Int, top: Int) {
+        stack.push(shape.getMemento())
+        shape.move(left, top)
     }
 
-    override fun toHelp() {
-        println("call an ambulance")
+    fun undo() {
+        if (!stack.isEmpty()) {
+            shape.setMemento(stack.pop())
+        }
     }
 }
