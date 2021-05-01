@@ -1,66 +1,55 @@
 package core
 
-import java.util.*
-
 
 fun main() {
-//Client
-    val shape = Shape()
-    val helper = ShapeHelper(shape)
-
-    helper.move(2, 3)
-    //shape.position is (2,3)
-    helper.move(-3, 7)
-    //shape.position -3, 7
-
-    println("${shape.position.x}, ${shape.position.y}")
-    helper.undo()
-    //shape.position is 2, 3
-    helper.undo()
-    //shape.position is 0, 0
+    //Client
+    val bank = Bank()
+    val cPut = PutCommand(bank)
+    val cGet = GetCommand(bank)
+    val client = BankClient(cPut, cGet)
+    client.getMoney()
+    //money to the client
+    client.putMoney()
+    //money from the client
 }
 
-//State
-class Point(var x: Int, var y: Int)
-
-class Memento(private val state: Point) {
-    fun getState(): Point {
-        return state
-    }
+interface Command {
+    fun execute()
 }
 
-//Originator
-class Shape {
-    var position = Point(0, 0)
-
-    fun move(left: Int, top: Int) {
-        position.x += left
-        position.y += top
+//Invoker
+class BankClient(private val putCommand: Command, private val getCommand: Command) {
+    fun putMoney() {
+        putCommand.execute()
     }
 
-    fun getMemento(): Memento {
-        val state = Point(
-                position.x, position.y)
-        return Memento(state)
-    }
-
-    fun setMemento(memento: Memento) {
-        position = memento.getState()
+    fun getMoney() {
+        getCommand.execute()
     }
 }
 
-//Caretaker
-class ShapeHelper(private val shape: Shape) {
-    private val stack = Stack<Memento>()
-
-    fun move(left: Int, top: Int) {
-        stack.push(shape.getMemento())
-        shape.move(left, top)
+//Receiver
+class Bank {
+    fun giveMoney() {
+        println("money to the client")
     }
 
-    fun undo() {
-        if (!stack.isEmpty()) {
-            shape.setMemento(stack.pop())
-        }
+    fun receiveMoney() {
+        println("money from the client")
     }
+}
+
+//ConcreteCommand
+class PutCommand(private val bank: Bank) : Command {
+    override fun execute() {
+        bank.receiveMoney()
+    }
+}
+
+//ConcreteCommand
+class GetCommand(private val bank: Bank) : Command {
+    override fun execute() {
+        bank.giveMoney()
+    }
+
 }
