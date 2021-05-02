@@ -3,60 +3,53 @@ package core
 
 fun main() {
     //Client
-    val con = Connection()
+    val calc = Calc()
+    val result1 = calc.execute(5, 3)
+    //result1 is 0
 
-    //open the connection
-    con.open()
-    //connection is already open
-    con.open()
-    //close the connection
-    con.close()
-    //connection is already closed
-    con.close()
+    calc.setStrategy(AddStrategy())
+    val result2 = calc.execute(5, 3)
+    //result2 is 8
+
+    calc.setStrategy(SubstractStrategy())
+    val result3 = calc.execute(5, 3)
+    //result3 is 2
+
+    println(result1)
+    println(result2)
+    println(result3)
 }
 
-interface State {
-    fun open(c: core.Connection)
-    fun close(c: Connection)
+interface Strategy {
+    fun doOperation(a: Int, b: Int): Int
 }
 
-//ConcreteState
-class CloseState : State {
-    override fun open(c: core.Connection) {
-        println("open the connection")
-        c.setState(OpenState())
-    }
-
-    override fun close(c: Connection) {
-        println("connection is already closed")
+//ConcreteStrategy
+class AddStrategy : Strategy {
+    override fun doOperation(a: Int, b: Int): Int {
+        return a + b
     }
 }
 
-//ConcreteState
-class OpenState : State {
-    override fun open(c: core.Connection) {
-        println("connection is already open")
-    }
-
-    override fun close(c: Connection) {
-        println("close the connection")
-        c.setState(CloseState())
+//ConcreteStrategy
+class SubstractStrategy : Strategy {
+    override fun doOperation(a: Int, b: Int): Int {
+        return a - b
     }
 }
 
 //Context
-class Connection {
-    private var state: State = CloseState()
+class Calc {
+    private var strategy: Strategy? = null
 
-    fun open() {
-        state.open(this)
+    fun execute(a: Int, b: Int): Int {
+        if (strategy == null) {
+            return 0
+        }
+        return strategy!!.doOperation(a, b)
     }
 
-    fun close() {
-        state.close(this)
-    }
-
-    fun setState(state: State) {
-        this.state = state
+    fun setStrategy(strategy: Strategy) {
+        this.strategy = strategy
     }
 }
