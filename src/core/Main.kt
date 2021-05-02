@@ -2,54 +2,83 @@ package core
 
 
 fun main() {
-    //Client
-    val calc = Calc()
-    val result1 = calc.execute(5, 3)
-    //result1 is 0
+    val car = Car()
+    val v1 = TestCarVisitor()
+    val v2 = RepairCarVisitor()
 
-    calc.setStrategy(AddStrategy())
-    val result2 = calc.execute(5, 3)
-    //result2 is 8
-
-    calc.setStrategy(SubstractStrategy())
-    val result3 = calc.execute(5, 3)
-    //result3 is 2
-
-    println(result1)
-    println(result2)
-    println(result3)
+    car.accept(v1)
+    car.accept(v2)
 }
 
-interface Strategy {
-    fun doOperation(a: Int, b: Int): Int
+//Visitor
+interface CarVisitor {
+    fun visit(engine: Engine)
+    fun visit(wheel: Wheel)
+    fun visit(car: Car)
 }
 
-//ConcreteStrategy
-class AddStrategy : Strategy {
-    override fun doOperation(a: Int, b: Int): Int {
-        return a + b
+//ConcreteVisitor
+class TestCarVisitor : CarVisitor {
+    override fun visit(engine: Engine) {
+        println("test engine")
+    }
+
+    override fun visit(wheel: Wheel) {
+        println("test wheel #${wheel.getNumber()}")
+    }
+
+    override fun visit(car: Car) {
+        println("test car")
     }
 }
 
-//ConcreteStrategy
-class SubstractStrategy : Strategy {
-    override fun doOperation(a: Int, b: Int): Int {
-        return a - b
+//ConcreteVisitor
+class RepairCarVisitor : CarVisitor {
+    override fun visit(engine: Engine) {
+        println("repair engine")
+    }
+
+    override fun visit(wheel: Wheel) {
+        println("repair wheel #${wheel.getNumber()}")
+    }
+
+    override fun visit(car: Car) {
+        println("repair car")
+    }
+
+}
+
+interface Element {
+    fun accept(v: CarVisitor)
+}
+
+//ConcreteElement
+class Engine : Element {
+    override fun accept(v: CarVisitor) {
+        v.visit(this)
     }
 }
 
-//Context
-class Calc {
-    private var strategy: Strategy? = null
+//ConcreteElement
+class Wheel(private val number: Int) : Element {
+    fun getNumber(): Int {
+        return number
+    }
 
-    fun execute(a: Int, b: Int): Int {
-        if (strategy == null) {
-            return 0
+    override fun accept(v: CarVisitor) {
+        v.visit(this)
+    }
+}
+
+//ConcreteElement
+class Car : Element {
+    private val items = arrayOf(Engine(), Wheel(1), Wheel(2),
+            Wheel(3), Wheel(4))
+
+    override fun accept(v: CarVisitor) {
+        for (e in items) {
+            e.accept(v)
         }
-        return strategy!!.doOperation(a, b)
-    }
-
-    fun setStrategy(strategy: Strategy) {
-        this.strategy = strategy
+        v.visit(this)
     }
 }
