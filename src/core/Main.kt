@@ -3,66 +3,58 @@ package core
 
 fun main() {
     //Client
-    val mediator = SyncMediator()
-    val switcher1 = Switcher(mediator)
-    val switcher2 = Switcher(mediator)
-    val switcher3 = Switcher(mediator)
+    val observer1 = TextObserver("Observer #1")
+    val observer2 = TextObserver("Observer #2")
 
-    switcher1.setState(true)
-    var state2 = switcher2.getState()
-    //state2 is false
-    var state3 = switcher3.getState()
-    //state is false
+    val textEdit = TextEdit()
+    textEdit.attach(observer1)
+    textEdit.attach(observer2)
 
-    switcher1.sync()
-    state2 = switcher2.getState()
-    //state2 is true
-    state3 = switcher3.getState()
-    //state 3 is true
-
-    println(state2)
-    println(state3)
+    textEdit.setText("Test text")
+    //printed: Obs #1 test text and #2
 }
 
-//Colleague
-class Switcher {
-    private var state = false
-    private var mediator: Mediator
+interface Observer {
+    fun update(state: String)
+}
 
-    constructor(mediator: Mediator) {
-        this.mediator = mediator
-        mediator.add(this)
-    }
-
-    fun sync() {
-        mediator.sync(this)
-    }
-
-    fun getState(): Boolean {
-        return state
-    }
-
-    fun setState(value: Boolean) {
-        state = value
+//ConcreteObserver
+class TextObserver(private val name: String) : Observer {
+    override fun update(state: String) {
+        println("$name: $state")
     }
 }
 
-abstract class Mediator {
-    protected val switchers = mutableListOf<Switcher>()
+//Subject
+abstract class TestSubject() {
+    private val observers = mutableListOf<Observer>()
 
-    abstract fun sync(switcher: Switcher)
-
-    fun add(switcher: Switcher) {
-        switchers.add(switcher)
+    fun attach(observer: Observer) {
+        observers.add(observer)
     }
-}
 
-//ConcreteMediator
-class SyncMediator : Mediator() {
-    override fun sync(switcher: Switcher) {
-        val state = switcher.getState()
-        for (curSwitcher in switchers) {
-            curSwitcher.setState(state)
+    fun detach(observer: Observer) {
+        observers.remove(observer)
+    }
+
+    fun notify(state: String) {
+        for (observer in observers) {
+            observer.update(state)
         }
+    }
+}
+
+//ConcreteSubject
+class TextEdit : TestSubject() {
+    private var text = ""
+
+    //SetState(state)
+    fun setText(text: String) {
+        this.text = text
+        notify(text)
+    }
+
+    fun getText(): String {
+        return text
     }
 }
