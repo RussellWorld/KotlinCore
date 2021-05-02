@@ -3,58 +3,60 @@ package core
 
 fun main() {
     //Client
-    val observer1 = TextObserver("Observer #1")
-    val observer2 = TextObserver("Observer #2")
+    val con = Connection()
 
-    val textEdit = TextEdit()
-    textEdit.attach(observer1)
-    textEdit.attach(observer2)
-
-    textEdit.setText("Test text")
-    //printed: Obs #1 test text and #2
+    //open the connection
+    con.open()
+    //connection is already open
+    con.open()
+    //close the connection
+    con.close()
+    //connection is already closed
+    con.close()
 }
 
-interface Observer {
-    fun update(state: String)
+interface State {
+    fun open(c: core.Connection)
+    fun close(c: Connection)
 }
 
-//ConcreteObserver
-class TextObserver(private val name: String) : Observer {
-    override fun update(state: String) {
-        println("$name: $state")
-    }
-}
-
-//Subject
-abstract class TestSubject() {
-    private val observers = mutableListOf<Observer>()
-
-    fun attach(observer: Observer) {
-        observers.add(observer)
+//ConcreteState
+class CloseState : State {
+    override fun open(c: core.Connection) {
+        println("open the connection")
+        c.setState(OpenState())
     }
 
-    fun detach(observer: Observer) {
-        observers.remove(observer)
-    }
-
-    fun notify(state: String) {
-        for (observer in observers) {
-            observer.update(state)
-        }
+    override fun close(c: Connection) {
+        println("connection is already closed")
     }
 }
 
-//ConcreteSubject
-class TextEdit : TestSubject() {
-    private var text = ""
-
-    //SetState(state)
-    fun setText(text: String) {
-        this.text = text
-        notify(text)
+//ConcreteState
+class OpenState : State {
+    override fun open(c: core.Connection) {
+        println("connection is already open")
     }
 
-    fun getText(): String {
-        return text
+    override fun close(c: Connection) {
+        println("close the connection")
+        c.setState(CloseState())
+    }
+}
+
+//Context
+class Connection {
+    private var state: State = CloseState()
+
+    fun open() {
+        state.open(this)
+    }
+
+    fun close() {
+        state.close(this)
+    }
+
+    fun setState(state: State) {
+        this.state = state
     }
 }
