@@ -3,8 +3,8 @@ package core
 import java.util.*
 
 
-// Time Complexity O(n^2)
-// Space Complexity O(1)
+// Time Complexity O(n log(n))
+// Space Complexity O(n)
 
 fun main() {
     var items = arrayOf(4, 17, 15, 3, 2, 6, 7, 9, 11, 8, 14, 5, 16, 1)
@@ -31,20 +31,51 @@ fun main() {
     val milliseconds = Date().time - start.time
 
     println(milliseconds)
-//// about 2788 milliseconds
+//// about 900 milliseconds
 }
 
 fun sort(arr: Array<Int>): Array<Int> {
     var items = arr.copyOf()
-    for (i in 0..items.size - 1) {
-        for (j in i + 1..items.size - 1) {
-            if (items[j] < items[i]) {
-                val tmp = items[j]
-                items[j] = items[i]
-                items[i] = tmp
-            }
-        }
-    }
+    doSort(items)
+
     return items
 }
 
+fun doSort(items: Array<Int>) {
+    if (items.size == 1)
+        return
+
+    val lLeft = items.size / 2
+    var left = items.copyOfRange(0, lLeft)
+    var right = items.copyOfRange(lLeft, items.size)
+
+    doSort(left)
+    doSort(right)
+
+    return merge(left, right, items)
+}
+
+fun merge(left: Array<Int>, right: Array<Int>, result: Array<Int>) {
+    var l = 0
+    var r = 0
+    var i = 0
+
+    while (l < left.size && r < right.size) {
+        if (left[l] < right[r]) {
+            result[i] = left[l]
+            l++
+        } else {
+            result[i] = right[r]
+            r++
+        }
+        i++
+    }
+    for (j in l..left.size - 1) {
+        result[i] = left[j]
+        i++
+    }
+    for (j in r..right.size - 1) {
+        result[i] = right[j]
+        i++
+    }
+}
