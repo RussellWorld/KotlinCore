@@ -3,8 +3,8 @@ package core
 import java.util.*
 
 
-// Time Complexity O(n log(n))
-// Space Complexity O(n)
+// Time Complexity O(nk)
+// Space Complexity O(n+k)
 
 fun main() {
     var items = arrayOf(4, 17, 15, 3, 2, 6, 7, 9, 11, 8, 14, 5, 16, 1)
@@ -31,51 +31,41 @@ fun main() {
     val milliseconds = Date().time - start.time
 
     println(milliseconds)
-//// about 900 milliseconds
+//// about 950 milliseconds
 }
 
-fun sort(arr: Array<Int>): Array<Int> {
-    var items = arr.copyOf()
-    doSort(items)
+fun listToBuckets(items: Array<Int>, cBase: Int, i: Int): Array<MutableList<Int>> {
+    val buckets = Array(cBase, { mutableListOf<Int>() })
 
-    return items
+    val pBase = Math.pow(cBase.toDouble(), i.toDouble()).toInt()
+    for (x in items) {
+        //Isolate the base-digit from the number
+        val digit = (x / pBase) % cBase
+        //Drop the number into the correct bucket
+        buckets[digit].add(x)
+    }
+    return buckets
 }
 
-fun doSort(items: Array<Int>) {
-    if (items.size == 1)
-        return
+fun bucketsToList(buckets: Array<MutableList<Int>>): Array<Int> {
+    val result = mutableListOf<Int>()
 
-    val lLeft = items.size / 2
-    var left = items.copyOfRange(0, lLeft)
-    var right = items.copyOfRange(lLeft, items.size)
-
-    doSort(left)
-    doSort(right)
-
-    return merge(left, right, items)
+    for (bucket in buckets) {
+        //add the numbers in a bucket
+        //sequentially to the returned array
+        result.addAll(bucket)
+    }
+    return result.toTypedArray()
 }
 
-fun merge(left: Array<Int>, right: Array<Int>, result: Array<Int>) {
-    var l = 0
-    var r = 0
+fun sort(array: Array<Int>, cBase: Int = 10): Array<Int> {
+    var result = array.copyOf()
+    val maxVal = array.max()!!
     var i = 0
 
-    while (l < left.size && r < right.size) {
-        if (left[l] < right[r]) {
-            result[i] = left[l]
-            l++
-        } else {
-            result[i] = right[r]
-            r++
-        }
+    while (Math.pow(cBase.toDouble(), i.toDouble()) <= maxVal) {
+        result = bucketsToList(listToBuckets(result, cBase, i))
         i++
     }
-    for (j in l..left.size - 1) {
-        result[i] = left[j]
-        i++
-    }
-    for (j in r..right.size - 1) {
-        result[i] = right[j]
-        i++
-    }
+    return result
 }
