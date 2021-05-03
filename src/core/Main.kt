@@ -2,20 +2,21 @@ package core
 
 import java.util.*
 
+// Time Complexity from O(n log(n)) to O(n^2)
+// Space Complexity O(log(n))
 
-// Time Complexity O(nk)
-// Space Complexity O(n+k)
 
 fun main() {
-    var items = arrayOf(4, 17, 15, 3, 2, 6, 7, 9, 11, 8, 14, 5, 16, 1)
+
+    var items = arrayOf(4, 1, 5, 3, 2, 6, 17, 7, 16, 8, 19, 9)
 
     val sortItems = sort(items)
 // sortItems is {1, 2, 3, 4, 5}
     sortItems.forEach { print("$it ") }
     println()
 
-//// *** simplified speed test ***
-    items = Array(200) { 0 }
+// *** simplified speed test ***
+    items = Array(200, { 0 })
             .mapIndexed { i, _ -> i }
             .toTypedArray()
     val tmp = items[5]
@@ -24,48 +25,42 @@ fun main() {
     val count = 10000
     val start = Date()
 
-    for (i in 0 until count) {
+    for (i in 0..count - 1) {
         sort(items)
     }
 
     val milliseconds = Date().time - start.time
 
     println(milliseconds)
-//// about 950 milliseconds
+// about 300 milliseconds
+
 }
 
-fun listToBuckets(items: Array<Int>, cBase: Int, i: Int): Array<MutableList<Int>> {
-    val buckets = Array(cBase, { mutableListOf<Int>() })
+fun doSort(items: Array<Int>, fst: Int, lst: Int) {
+    if (fst >= lst)
+        return
+    var i = fst
+    var j = lst
+    var x = items[(fst + lst) / 2]
 
-    val pBase = Math.pow(cBase.toDouble(), i.toDouble()).toInt()
-    for (x in items) {
-        //Isolate the base-digit from the number
-        val digit = (x / pBase) % cBase
-        //Drop the number into the correct bucket
-        buckets[digit].add(x)
+    while (i < j) {
+        while (items[i] < x) i++
+        while (items[j] > x) j--
+        if (i <= j) {
+            var tmp = items[i]
+            items[i] = items[j]
+            items[j] = tmp
+            i++
+            j--
+        }
     }
-    return buckets
+    doSort(items, fst, j)
+    doSort(items, i, lst)
 }
 
-fun bucketsToList(buckets: Array<MutableList<Int>>): Array<Int> {
-    val result = mutableListOf<Int>()
-
-    for (bucket in buckets) {
-        //add the numbers in a bucket
-        //sequentially to the returned array
-        result.addAll(bucket)
-    }
-    return result.toTypedArray()
+fun sort(arr: Array<Int>): Array<Int> {
+    var items = arr.copyOf()
+    doSort(items, 0, items.size - 1)
+    return items
 }
 
-fun sort(array: Array<Int>, cBase: Int = 10): Array<Int> {
-    var result = array.copyOf()
-    val maxVal = array.max()!!
-    var i = 0
-
-    while (Math.pow(cBase.toDouble(), i.toDouble()) <= maxVal) {
-        result = bucketsToList(listToBuckets(result, cBase, i))
-        i++
-    }
-    return result
-}
