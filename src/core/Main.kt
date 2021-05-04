@@ -15,7 +15,7 @@ fun main() {
 
 
     //   speed test
-    items = Array(1000000, { 0 }).mapIndexed { i, _ -> i }.toMutableList()
+    items = Array(1000000) { 0 }.mapIndexed { i, _ -> i }.toMutableList()
     val count = 100
 
     val start = Date()
@@ -27,21 +27,18 @@ fun main() {
     val milliseconds = Date().time - start.time
     println(milliseconds)
 
-    //about 471
+    //about 3
 }
 
-fun search(list: MutableList<Int>, x: Int): Int {
+fun search(list: List<Int>, x: Int): Int {
     var i = 0
-    val count = list.size
-    list.add(x)
-    while (true) {
-        if (list[i] == x) {
-            if (i < count) {
-                return i
-            }
-            return -1
-        }
-        i++
+    var j = list.size
+    while (i != j) {
+        var m = (i + j) / 2
+        if (x == list[m])
+            return m
+        if (x < list[m]) j = m
+        else i = m + 1
     }
-    list.removeAt(count)
+    return -1
 }
