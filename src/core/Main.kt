@@ -2,65 +2,41 @@ package core
 
 import java.util.*
 
-// Time Complexity from O(n log(n)) to O(n^2)
-// Space Complexity O(log(n))
-
 
 fun main() {
+    var items = listOf(2, 3, 5, 7, 11, 13, 17, 22, 25, 29, 32)
 
-    var items = arrayOf(4, 1, 5, 3, 2, 6, 17, 7, 16, 8, 19, 9)
+    println(search(items, 1))
+    //print -1
+    println(search(items, 7))
+    //print 3
+    println(search(items, 19))
+    //print 3
 
-    val sortItems = sort(items)
-// sortItems is {1, 2, 3, 4, 5}
-    sortItems.forEach { print("$it ") }
-    println()
 
-// *** simplified speed test ***
-    items = Array(200, { 0 })
-            .mapIndexed { i, _ -> i }
-            .toTypedArray()
-    val tmp = items[5]
-    items[5] = items[6]
-    items[6] = tmp
-    val count = 10000
+    //   speed test
+    items = Array(1000000, { 0 }).mapIndexed { i, _ -> i }
+    val count = 100
+
     val start = Date()
 
-    for (i in 0..count - 1) {
-        sort(items)
+    for (i in 0 until count) {
+        search(items, 7777777)
     }
-
+    println()
     val milliseconds = Date().time - start.time
-
     println(milliseconds)
-// about 300 milliseconds
 
+    //about 385
 }
 
-fun doSort(items: Array<Int>, fst: Int, lst: Int) {
-    if (fst >= lst)
-        return
-    var i = fst
-    var j = lst
-    var x = items[(fst + lst) / 2]
-
-    while (i < j) {
-        while (items[i] < x) i++
-        while (items[j] > x) j--
-        if (i <= j) {
-            var tmp = items[i]
-            items[i] = items[j]
-            items[j] = tmp
-            i++
-            j--
-        }
+fun search(arr: List<Int>, x: Int): Int {
+    var i = 0
+    val count = arr.size
+    while (i < count) {
+        if (arr[i] == x)
+            return i
+        i++
     }
-    doSort(items, fst, j)
-    doSort(items, i, lst)
+    return -1
 }
-
-fun sort(arr: Array<Int>): Array<Int> {
-    var items = arr.copyOf()
-    doSort(items, 0, items.size - 1)
-    return items
-}
-
