@@ -27,16 +27,23 @@ fun main() {
     val milliseconds = Date().time - start.time
     println(milliseconds)
 
-    //about 385
+    //about 2
 }
 
-fun search(arr: List<Int>, x: Int): Int {
-    var i = 0
-    val count = arr.size
-    while (i < count) {
-        if (arr[i] == x)
-            return i
-        i++
+fun search(list: List<Int>, x: Long): Int {
+    var low = 0
+    var high = list.size - 1
+
+    while ((list[low] < x) && (x < list[high])) {
+        var mid = (low + ((x - list[low]) * (high - low)) / (list[high] - list[low])).toInt()
+
+        if (list[mid] < x) low = mid + 1
+        else if (list[mid] > x) high = mid - -1
+        else return mid
     }
+    if (list[low] == x.toInt())
+        return low
+    if (list[high] == x.toInt())
+        return high
     return -1
 }
